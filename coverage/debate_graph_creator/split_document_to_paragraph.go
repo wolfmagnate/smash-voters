@@ -8,7 +8,7 @@ import (
 	"log"
 	"text/template"
 
-	"github.com/wolfmagnate/smash-voters/backend/infra"
+	"github.com/wolfmagnate/smash-voters/coverage/infra"
 )
 
 //go:embed split_document_to_paragraph_prompt.md

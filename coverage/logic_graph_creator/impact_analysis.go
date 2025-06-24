@@ -8,7 +8,7 @@ import (
 	"log"
 	"text/template"
 
-	"github.com/wolfmagnate/smash-voters/backend/infra"
+	"github.com/wolfmagnate/smash-voters/coverage/infra"
 )
 
 //go:embed impact_analysis_prompt.md

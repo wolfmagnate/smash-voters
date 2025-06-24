@@ -9,8 +9,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/wolfmagnate/smash-voters/backend/domain"
-	"github.com/wolfmagnate/smash-voters/backend/infra"
+	"github.com/wolfmagnate/smash-voters/coverage/domain"
+	"github.com/wolfmagnate/smash-voters/coverage/infra"
 )
 
 //go:embed create_debate_annotations_prompt.md

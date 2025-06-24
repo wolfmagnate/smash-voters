@@ -16,10 +16,10 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// ルーティング: GET / で "hello world" を返す
-	e.GET("/", func(c echo.Context) error {
+	// ヘルスチェック
+	e.GET("/healthz", func(c echo.Context) error {
 		// c.String(ステータスコード, 返す文字列)
-		return c.String(http.StatusOK, "hello world")
+		return c.String(http.StatusOK, "healthy")
 	})
 
 	// Webサーバーをポート8080で起動

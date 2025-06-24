@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/wolfmagnate/smash-voters/backend/domain"
+	"github.com/wolfmagnate/smash-voters/coverage/domain"
 )
 
 type DebateGraphCreator struct {

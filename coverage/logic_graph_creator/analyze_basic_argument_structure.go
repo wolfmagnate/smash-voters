@@ -9,7 +9,7 @@ import (
 	"log"
 	"text/template"
 
-	"github.com/wolfmagnate/smash-voters/backend/infra"
+	"github.com/wolfmagnate/smash-voters/coverage/infra"
 )
 
 //go:embed analyze_basic_argument_structure_prompt.md

@@ -10,8 +10,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/wolfmagnate/smash-voters/backend/domain"
-	"github.com/wolfmagnate/smash-voters/backend/infra"
+	"github.com/wolfmagnate/smash-voters/coverage/domain"
+	"github.com/wolfmagnate/smash-voters/coverage/infra"
 )
 
 //go:embed find_new_arguments_prompt.md

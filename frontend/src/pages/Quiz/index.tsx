@@ -1,40 +1,33 @@
 // src/pages/Quiz/index.tsx
+'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from './Quiz.module.css';
-// グラフ生成用コンポーネント（後で実装）
-import DebateGraph from '../../components/DebateGraph';
+//import DebateGraph from '../../components/DebateGraph';
 
 const TOTAL_QUESTIONS = 12;
-const options = [
-  '反対',
-  'やや反対',
-  '中立',
-  'やや賛成',
-  '賛成'
-];
+const options = ['反対','やや反対','中立','やや賛成','賛成'];
 
 export default function Quiz() {
-  /** 現在の質問番号 */
+  //const router = useRouter();
   const [current, setCurrent] = useState(0);
-  /** ユーザーの回答 */
   const [answers, setAnswers] = useState<string[]>(Array(TOTAL_QUESTIONS).fill(''));
-  /** グラフ生成フラグ */
   const [showGraph, setShowGraph] = useState(false);
 
   const handleAnswer = (choice: string) => {
+    // 回答を保存
     const newAnswers = [...answers];
     newAnswers[current] = choice;
     setAnswers(newAnswers);
+    // グラフ表示をリセット
+    setShowGraph(false);
+    // 次の質問へ、または結果ページへ移動
     if (current < TOTAL_QUESTIONS - 1) {
       setCurrent(current + 1);
+    } else {
+      const query = encodeURIComponent(newAnswers.join(','));
+      router.push(`/result?answers=${query}`);
     }
-    // 回答時にグラフをリセット
-    setShowGraph(false);
-  };
-
-  const handleGenerate = () => {
-    // ここでDebateGraph生成の処理を呼び出し
-    setShowGraph(true);
   };
 
   return (
@@ -47,7 +40,7 @@ export default function Quiz() {
         <span className={styles.progressText}>{`${current + 1} / ${TOTAL_QUESTIONS}`}</span>
       </div>
 
-      <h3 className={styles.subtitle}>政策に関する法律</h3>
+      <h3 className={styles.subtitle}> 政策に関する法律</h3>
       <h1 className={styles.title}>問題の説明</h1>
       <p className={styles.description}>
         ここに政策に関する詳細な説明が入ります。ユーザーに問題の背景や要点を伝えます。
@@ -65,15 +58,12 @@ export default function Quiz() {
         ))}
       </div>
 
-      {/* グラフ生成ボタン */}
-      <button className={styles.generateButton} onClick={handleGenerate}>
+      <button className={styles.generateButton}>
         グラフ生成
       </button>
 
       <div className={styles.graphContainer}>
-        {showGraph ? (
-          <DebateGraph data={answers} questionIndex={current} />
-        ) : null}
+        {showGraph}
       </div>
     </div>
   );

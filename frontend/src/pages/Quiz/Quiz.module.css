@@ -69,36 +69,41 @@ body{
 
 .buttonGroup {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;      /* ボタン自動改行 */
+  gap: 20px;
+  justify-content: center;
   margin-bottom: 40px;
 }
 
 /* ボタン共通スタイル */
 .button {
-  flex: 1;
-  margin: 0 20px;
+  flex:1 1 calc((100% - 4*20px) /5);
+  gap: 20px;
   padding: 25px;
   border: 2px solid transparent;
   border-radius: 12px;
   cursor: pointer;
   font-size: larger;
   font-weight: bold;
+  text-align: center;
+  white-space: nowrap;       /* テキスト改行防止 */
+  min-width: 7em;
+  max-width: 8em;
   color: #000;
   transition: background-color 0.2s, border-color 0.2s;
 }
 
 /* 各ボタン背景色 */
-.buttonGroup .button:nth-child(1) { background-color: #e53935; }
-.buttonGroup .button:nth-child(2) { background-color: #ff8a80; }
+.buttonGroup .button:nth-child(1) { background-color: #fc6866; }
+.buttonGroup .button:nth-child(2) { background-color: #fc9d94; }
 .buttonGroup .button:nth-child(3) { background-color: #e0e0e0; }
 .buttonGroup .button:nth-child(4) { background-color: #bbdefb; }
-.buttonGroup .button:nth-child(5) { background-color: #2196f3; }
+.buttonGroup .button:nth-child(5) { background-color: #5ab2fb; }
 
 /* hover時の枠線のみ表示 */
 .buttonGroup .button:nth-child(1):hover {
   background-color: #fff;
   border-color: #e53935;
-  color: #e53935;
 }
 .buttonGroup .button:nth-child(2):hover {
   background-color: #fff;

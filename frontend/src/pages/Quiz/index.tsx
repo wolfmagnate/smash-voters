@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import styles from './Quiz.module.css';
 //import DebateGraph from '../../components/DebateGraph';
 
-const TOTAL_QUESTIONS = 12;
+const TOTAL_QUESTIONS = 20;
 const options = ['反対','やや反対','中立','やや賛成','賛成'];
 
 export default function Quiz() {
@@ -26,7 +26,7 @@ export default function Quiz() {
       setCurrent(current + 1);
     } else {
       const query = encodeURIComponent(newAnswers.join(','));
-      router.push(`/result?answers=${query}`);
+      //router.push(`/result?answers=${query}`);
     }
   };
 

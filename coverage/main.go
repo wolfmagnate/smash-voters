@@ -10,11 +10,13 @@ import (
 )
 
 func main() {
-	// Initialize other services
+	// Initialize services
 	researchService := services.NewResearchService("http://localhost:8000/research")
+	graphService := services.NewGraphService()
 
 	// Initialize handlers
 	researchHandler := handlers.NewResearchHandler(researchService)
+	graphHandler := handlers.NewGraphHandler(graphService)
 
 	// Echoのインスタンスを作成
 	e := echo.New()
@@ -36,6 +38,9 @@ func main() {
 
 	// Research API endpoint
 	api.POST("/research/:theme/:is_positive", researchHandler.HandleResearch)
+
+	// Graph API endpoint
+	api.GET("/graph", graphHandler.HandleGraph)
 
 	// Webサーバーをポート8080で起動
 	// e.Logger.Fatal はエラーが発生した場合にログを出力してプログラムを終了します

@@ -21,3 +21,16 @@ type DebateAnalysisRequest struct {
 type LogicAnalysisRequest struct {
 	Document string `json:"document"`
 }
+
+// GraphRequest represents the incoming request structure for graph API
+type GraphRequest struct {
+	Status     string `json:"status" validate:"required,oneof=completed failed"`
+	ResultPath string `json:"result_path" validate:"required"`
+}
+
+// GraphResponse represents the response structure for graph API
+type GraphResponse struct {
+	Status    string `json:"status"`
+	Message   string `json:"message"`
+	GraphPath string `json:"graph_path,omitempty"`
+}

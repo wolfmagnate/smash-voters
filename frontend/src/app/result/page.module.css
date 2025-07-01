@@ -1,0 +1,19 @@
+/* src/pages/result/result.module.css */
+.container { 
+    max-width: 1024px; 
+    margin: 0 auto; 
+    padding: 16px; 
+    text-align: center; 
+}
+
+.title { 
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.text { 
+    font-size: 1.5rem; 
+    color: #000; 
+}

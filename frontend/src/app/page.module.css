@@ -1,0 +1,63 @@
+/* src/pages/home.module.css */
+body{
+  background-color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  .notice {
+    max-width: 1024px;
+    border-top: 5px solid #ccc;
+    border-bottom: 5px solid #ccc;
+    padding: 24px 0;
+    margin: 16px 0;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: #333;
+    margin-bottom: 60px;
+  }
+  
+  .subtitle {
+    display: block;
+    width:fit-content;
+    margin: 0 auto 40px;
+    padding: 6 12px;
+    font-size: 1.5rem;
+    font-weight:bolder;
+    color: #000;
+    text-align: center;
+  }
+  
+  .startButton {
+    margin-top: 24px;
+    padding: 12px 24px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #4caf50;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .startButton:hover {
+    color: #4caf50;
+    background-color: #fff;
+    border-color: #4caf50;
+  }

@@ -1,7 +1,7 @@
 // src/pages/result/index.tsx
 'use client';
 import React from 'react';
-import styles from './result.module.css';
+import styles from './page.module.css';
 
 export default function Result() {
   return (

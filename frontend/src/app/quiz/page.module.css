@@ -8,7 +8,7 @@ body{
   max-width: 1024px;
   margin: 0 auto;
   padding: 16px;
-  background-color: transparent;
+  background-color: #fff;
 }
 
 .progressBar {

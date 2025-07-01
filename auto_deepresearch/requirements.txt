@@ -5,6 +5,9 @@ google-generativeai
 playwright
 fastapi
 uvicorn
+gunicorn
+google-cloud-storage
+requests
 google-genai
 google-api-python-client
 google-auth

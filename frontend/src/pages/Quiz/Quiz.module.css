@@ -1,4 +1,4 @@
-/* src/pages/Quiz/Quiz.module.css */
+/* src/pages/quiz/quiz.module.css */
 body{
   background-color: #fff;
 }
@@ -38,6 +38,14 @@ body{
   color: #000;
 }
 
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
 .subtitle {
   display: block;
   width:fit-content;
@@ -48,14 +56,6 @@ body{
   font-size: smaller;
   font-weight: bolder;
   color: #000;
-  text-align: center;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #000;
-  margin-bottom: 24px;
   text-align: center;
 }
 
@@ -145,6 +145,9 @@ body{
 }
 
 .graphContainer {
+  width: 100%;
+  max-width: 1024px;
+  min-width: min-content;
   min-height: 200px;
   border: 1px dashed #ccc;
   border-radius: 4px;

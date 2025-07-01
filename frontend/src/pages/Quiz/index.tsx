@@ -1,15 +1,15 @@
-// src/pages/Quiz/index.tsx
+// src/pages/quiz/index.tsx
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import styles from './Quiz.module.css';
+import { useRouter } from 'next/navigation';
+import styles from './quiz.module.css';
 //import DebateGraph from '../../components/DebateGraph';
 
 const TOTAL_QUESTIONS = 20;
 const options = ['反対','やや反対','中立','やや賛成','賛成'];
 
 export default function Quiz() {
-  //const router = useRouter();
+  const router = useRouter();
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(TOTAL_QUESTIONS).fill(''));
   const [showGraph, setShowGraph] = useState(false);
@@ -25,8 +25,8 @@ export default function Quiz() {
     if (current < TOTAL_QUESTIONS - 1) {
       setCurrent(current + 1);
     } else {
-      const query = encodeURIComponent(newAnswers.join(','));
-      //router.push(`/result?answers=${query}`);
+      //const query = encodeURIComponent(newAnswers.join(','));
+      router.push('/result')//?answers=${query}`);
     }
   };
 

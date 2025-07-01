@@ -3,12 +3,10 @@ from google import genai
 from google.genai import types
 from pathlib import Path
 
-# ─── 設定 ───
-PROJECT_ID = "auto-deepresearch"  # GCP プロジェクトID
-LOCATION   = "us-central1"        # GCP リージョン
+
 
 # GenAI クライアント初期化
-client = genai.Client(vertexai=True, project=PROJECT_ID, location=LOCATION)
+client = genai.Client()
 
 
 def run_deep_research(topic: str):
@@ -25,7 +23,7 @@ def run_deep_research(topic: str):
         tools=[grounding_tool]
     )
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash",
         contents=[types.Content(
             role="user",
             parts=[types.Part(text=f"以下のトピックについて詳細なレポートを作成してください:\n{topic}")]
@@ -52,6 +50,51 @@ def run_deep_research(topic: str):
         ]
     }
     return report, research
+
+
+def merge_report_and_research(report: str, research: dict) -> str:
+    """
+    report: 生成されたレポート本文
+    research: {
+        "queries": List[str],
+        "results": List[{"title": str, "uri": str, "snippet": str}]
+    }
+    の形式を想定
+
+    戻り値:
+      report→queries→results を組み合わせた単一の文字列
+    """
+    parts = []
+
+    # 1) レポート本文
+    parts.append(report.strip())
+
+    # 2) 検索クエリ
+    queries = research.get("queries", [])
+    if queries:
+        parts.append("\n=== Search Queries ===")
+        for idx, q in enumerate(queries, start=1):
+            parts.append(f"{idx}. {q}")
+
+    # 3) 検索結果
+    results = research.get("results", [])
+    if results:
+        parts.append("\n=== Search Results ===")
+        for idx, res in enumerate(results, start=1):
+            title   = res.get("title", "").strip()
+            uri     = res.get("uri", "").strip()
+            snippet = res.get("snippet", "").strip()
+
+            parts.append(f"\n-- Result {idx} --")
+            if title:
+                parts.append(f"Title: {title}")
+            if uri:
+                parts.append(f"URI: {uri}")
+            if snippet:
+                parts.append(f"Snippet: {snippet}")
+
+    # 結合して返却
+    return "\n".join(parts)
 
 
 def main():

@@ -7,6 +7,7 @@ from googleapiclient.errors import HttpError
 # 1. サービスアカウントの秘密鍵ファイルへのパス
 SERVICE_ACCOUNT_FILE = 'service_account_key.json' 
 # 2. Google Drive APIのスコープ
+#これなんだ
 SCOPES = ['https://www.googleapis.com/auth/drive']
 # 3. 操作したい親フォルダのID
 PARENT_FOLDER_ID = '1yd7VBM4LjTajzGWBnkhgSfXK7TjLQt1b' # ここに共有設定したフォルダのIDを指定

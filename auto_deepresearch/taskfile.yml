@@ -1,0 +1,10 @@
+# Taskfile.yml
+version: '3'
+
+tasks:
+  run:
+    desc: .envファイルから環境変数を読み込んで main.py を実行します
+    # この行で.envファイルを指定します
+    dotenv: ['.env']
+    cmds:
+      - uvicorn server:app --host 0.0.0.0 --port 8000 --reload

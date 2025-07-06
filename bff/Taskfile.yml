@@ -1,0 +1,81 @@
+version: '3'
+
+dotenv: ['.env']
+
+vars:
+  MIGRATIONS_DIR: infra/migrations
+  DATABASE_URL: "postgres://{{.POSTGRES_USER}}:{{.POSTGRES_PASSWORD}}@{{.POSTGRES_HOST}}:{{.POSTGRES_PORT}}/{{.POSTGRES_DBNAME}}?sslmode=disable"
+  PORT: '{{.PORT}}' # Default port for the application
+
+tasks:
+  install-devtools:
+    desc: "Install development tools"
+    cmds:
+      - go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+      - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+  sqlc:
+    dir: .//infra
+    cmds:
+      - sqlc generate
+
+  compose-up:
+    desc: Start docker-compose services
+    cmds:
+      - docker-compose up -d
+
+  compose-down:
+    desc: Stop and remove docker-compose services
+    cmds:
+      - docker-compose down
+
+  migrate-create:
+    desc: Create new migration files
+    cmds:
+      - migrate create -ext sql -dir {{.MIGRATIONS_DIR}} {{.CLI_ARGS}}
+    requires:
+      vars: [CLI_ARGS]
+
+  migrate-up:
+    desc: Apply all pending database migrations
+    cmds:
+      - migrate -database "{{.DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} up
+
+  migrate-down:
+    desc: Roll back the last applied migration
+    cmds:
+      - migrate -database "{{.DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} down 1
+
+  migrate-down-all:
+    desc: Roll back all database migrations
+    cmds:
+      - migrate -database "{{.DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} down all
+
+  migrate-status:
+    desc: Show current migration status
+    cmds:
+      - migrate -database "{{.DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} version
+
+  seed:
+    desc: Run the database seeder
+    cmds:
+      - go run cmd/seeder/main.go
+
+  run:
+    desc: Run the main application
+    cmds:
+      - go run main.go
+    env:
+      PORT: "{{.PORT}}"
+
+  test:
+    desc: Run all tests
+    cmds:
+      - go test ./...
+    env:
+      POSTGRES_USER: "{{.POSTGRES_USER}}"
+      POSTGRES_PASSWORD: "{{.POSTGRES_PASSWORD}}"
+      POSTGRES_HOST: "{{.POSTGRES_HOST}}"
+      POSTGRES_PORT: "{{.POSTGRES_PORT}}"
+      POSTGRES_DBNAME: "{{.POSTGRES_DBNAME}}"
+      PORT: "{{.PORT}}"

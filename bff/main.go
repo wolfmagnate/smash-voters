@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	httpSwagger "github.com/swaggo/http-swagger/v2"
@@ -14,12 +13,6 @@ import (
 )
 
 func main() {
-	// Load .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
-
 	// Initialize database connection
 	pool, err := infra.NewPgxPool()
 	if err != nil {

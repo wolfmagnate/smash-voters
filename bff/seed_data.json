@@ -1,0 +1,1890 @@
+{
+  "elections": [
+    {
+      "name": "2024年衆議院議員選挙",
+      "election_date": "2024-10-27"
+    }
+  ],
+  "parties": [
+    {
+      "name": "自由民主党",
+      "short_name": "自民党"
+    },
+    {
+      "name": "立憲民主党",
+      "short_name": "立憲"
+    },
+    {
+      "name": "日本維新の会",
+      "short_name": "維新"
+    },
+    {
+      "name": "公明党",
+      "short_name": "公明"
+    },
+    {
+      "name": "日本共産党",
+      "short_name": "共産"
+    },
+    {
+      "name": "国民民主党",
+      "short_name": "国民"
+    },
+    {
+      "name": "れいわ新選組",
+      "short_name": "れいわ"
+    },
+    {
+      "name": "再生の道",
+      "short_name": "再生"
+    },
+    {
+      "name": "みんなでつくる党",
+      "short_name": "みんつく"
+    },
+    {
+      "name": "日本保守党",
+      "short_name": "保守"
+    },
+    {
+      "name": "無所属連合",
+      "short_name": "無所属"
+    },
+    {
+      "name": "参政党",
+      "short_name": "参政"
+    },
+    {
+      "name": "NHK党",
+      "short_name": "NHK"
+    },
+    {
+      "name": "社会民主党",
+      "short_name": "社民"
+    }
+  ],
+  "questions": [
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "現金給付",
+      "question_text": "物価高対策として、現金を給付するべきですか？",
+      "description": "",
+      "display_order": 1
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "消費税0%",
+      "question_text": "食料品にかかる消費税を0%にすべきですか？",
+      "description": "",
+      "display_order": 2
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "大企業課税強化",
+      "question_text": "大企業への課税を強化すべきですか？",
+      "description": "",
+      "display_order": 3
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "基礎年金加入期間延長",
+      "question_text": "基礎年金の加入期間を65歳までに延ばすべきですか？",
+      "description": "",
+      "display_order": 4
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "大学授業料無償化",
+      "question_text": "大学の授業料を無償化すべきですか？",
+      "description": "",
+      "display_order": 5
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "ガソリン税暫定税率廃止",
+      "question_text": "ガソリン税の暫定税率を廃止すべきですか？",
+      "description": "",
+      "display_order": 6
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "原発増設",
+      "question_text": "原子力発電所を増設すべきですか？",
+      "description": "",
+      "display_order": 7
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "コメ農家所得補償拡充",
+      "question_text": "コメを増産するために農家への所得補償を拡充すべきですか？",
+      "description": "",
+      "display_order": 8
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "防衛費増額",
+      "question_text": "日本の防衛費を増額すべきですか？",
+      "description": "",
+      "display_order": 9
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "憲法9条自衛隊明記",
+      "question_text": "憲法9条に自衛隊の存在を明記すべきですか？",
+      "description": "",
+      "display_order": 10
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "子ども子育て支援金医療保険料上乗せ",
+      "question_text": "子ども・子育て支援金制度の財源として公的医療保険料に上乗せして徴収すべきですか？",
+      "description": "",
+      "display_order": 11
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "市販薬保険適用見直し",
+      "question_text": "市販薬と効果が似ている医薬品の保険適用を見直すべきですか？",
+      "description": "",
+      "display_order": 12
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "選択的夫婦別姓導入",
+      "question_text": "選択的夫婦別姓を導入すべきですか？",
+      "description": "",
+      "display_order": 13
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "女性天皇",
+      "question_text": "女性天皇を認めるべきですか？",
+      "description": "",
+      "display_order": 14
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "外国人労働者受け入れ制限",
+      "question_text": "外国人労働者の受け入れを制限すべきですか？",
+      "description": "",
+      "display_order": 15
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "派遣労働専門職限定",
+      "question_text": "非正規雇用を解消するために、派遣労働は専門性の高い職種に限定すべきですか？",
+      "description": "",
+      "display_order": 16
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "国債発行額増加",
+      "question_text": "国債の発行額を当面増やしていくべきですか？",
+      "description": "",
+      "display_order": 17
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "国土強靭化予算増",
+      "question_text": "国土強靭化の予算を増やすべきですか？",
+      "description": "",
+      "display_order": 18
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "企業団体献金禁止",
+      "question_text": "企業・団体献金を禁止すべきですか？",
+      "description": "",
+      "display_order": 19
+    },
+    {
+      "election_name": "2024年衆議院議員選挙",
+      "title": "選挙SNS規制強化",
+      "question_text": "選挙におけるSNS規制を強化すべきですか？",
+      "description": "",
+      "display_order": 20
+    }
+  ],
+  "party_stances": [
+    {
+      "party_name": "公明党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "現金給付",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "消費税0%",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "大企業課税強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "基礎年金加入期間延長",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "大学授業料無償化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "ガソリン税暫定税率廃止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "原発増設",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "コメ農家所得補償拡充",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "防衛費増額",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "憲法9条自衛隊明記",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "子ども子育て支援金医療保険料上乗せ",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "市販薬保険適用見直し",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "選択的夫婦別姓導入",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "女性天皇",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "外国人労働者受け入れ制限",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "派遣労働専門職限定",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "国債発行額増加",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "国土強靭化予算増",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "企業団体献金禁止",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "みんなでつくる党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 2
+    },
+    {
+      "party_name": "公明党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "自由民主党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "日本共産党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "日本維新の会",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 1
+    },
+    {
+      "party_name": "国民民主党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "立憲民主党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": 0
+    },
+    {
+      "party_name": "再生の道",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "日本保守党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -1
+    },
+    {
+      "party_name": "無所属連合",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "参政党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "NHK党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "れいわ新選組",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    },
+    {
+      "party_name": "社会民主党",
+      "question_title": "選挙SNS規制強化",
+      "election_name": "2024年衆議院議員選挙",
+      "stance": -2
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: "政党マッチング API"
+  description: "選挙ごとの政党マッチング（投票マッチ）機能を提供するAPI仕様書です。"
+  version: "1.0.0"
+
+servers:
+  - url: http://localhost:8123 # 実際にAPIが動作しているURL
+    description: ローカル開発環境
+  - url: https://staging.api.your-domain.com
+    description: ステージング環境
+  - url: https://api.your-domain.com
+    description: 本番環境
+paths:
+  /elections/latest:
+    get:
+      summary: "最新の選挙情報を取得"
+      description: "現在実施中または直近の選挙情報を1件取得します。トップページからの誘導などに利用します。"
+      tags:
+        - Elections
+      responses:
+        '200':
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Election'
+        '404':
+          description: "アクティブな選挙情報が見つかりません。"
+
+  /elections/{election_id}/questions:
+    get:
+      summary: "特定の選挙の設問一覧を取得"
+      description: "指定された選挙IDに紐づく設問を一覧で取得します。"
+      tags:
+        - Matching
+      parameters:
+        - name: election_id
+          in: path
+          required: true
+          description: "情報を取得したい選挙のID"
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  questions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Question'
+        '404':
+          description: "指定されたIDの選挙、または設問が見つかりません。"
+
+  /elections/{election_id}/matches:
+    post:
+      summary: "マッチング結果の計算・取得"
+      description: "ユーザーの回答情報を受け取り、指定された選挙における各政党とのマッチング度を計算して返します。"
+      tags:
+        - Matching
+      parameters:
+        - name: election_id
+          in: path
+          required: true
+          description: "マッチング計算を行う選挙のID"
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchRequest'
+      responses:
+        '200':
+          description: "マッチング計算成功"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponse'
+        '400':
+          description: "リクエストボディが不正です。（回答数が足りない、IDが不正など）"
+        '404':
+          description: "指定されたIDの選挙が見つかりません。"
+
+components:
+  schemas:
+    Election:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "選挙ID"
+          example: 1
+        name:
+          type: string
+          description: "選挙名"
+          example: "第27回参議院議員通常選挙"
+
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "設問ID"
+          example: 101
+        title:
+          type: string
+          description: "設問タイトル"
+          example: "現金給付"
+        question_text:
+          type: string
+          description: "設問本文"
+          example: "物価高対策として、現金を給付するべきですか？"
+        description:
+          type: string
+          description: "設問の補足情報"
+          example: "政府は物価高対策として国民1人あたり現金2万円を給付する方針を掲げています..."
+
+    UserAnswer:
+      type: object
+      properties:
+        question_id:
+          type: integer
+          description: "回答した設問のID"
+          example: 101
+        answer:
+          type: integer
+          description: "ユーザーの回答 (-2:反対, -1:やや反対, 0:中立, 1:やや賛成, 2:賛成)"
+          example: 2
+
+    MatchRequest:
+      type: object
+      required:
+        - answers
+        - important_question_ids
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAnswer'
+        important_question_ids:
+          type: array
+          description: "重要項目として選択した設問IDの配列（3つ）"
+          items:
+            type: integer
+          example: [1, 3, 5]
+      example:
+        answers:
+          - question_id: 1
+            answer: 2
+          - question_id: 2
+            answer: -1
+          - question_id: 3
+            answer: 0
+          - question_id: 4
+            answer: 1
+          - question_id: 5
+            answer: -2
+        important_question_ids: [1, 3]
+
+    PartyMatchResult:
+      type: object
+      properties:
+        party_name:
+          type: string
+          description: "政党名"
+          example: "公明党"
+        match_rate:
+          type: integer
+          description: "マッチング度（0-100の整数）"
+          example: 75
+
+    MatchResponse:
+      type: object
+      properties:
+        top_match:
+          $ref: '#/components/schemas/PartyMatchResult'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartyMatchResult'

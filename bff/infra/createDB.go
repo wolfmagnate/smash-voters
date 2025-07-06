@@ -15,7 +15,7 @@ func NewPgxPool() (*pgxpool.Pool, error) {
 	port := os.Getenv("POSTGRES_PORT")
 	dbname := os.Getenv("POSTGRES_DBNAME")
 
-	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s",
 		user, password, host, port, dbname)
 
 	pool, err := pgxpool.New(context.Background(), dsn)

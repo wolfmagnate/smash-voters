@@ -86,9 +86,9 @@ function GraphComponent() {
 
 export default function Graph() {
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-2">
+    <div className="p-2 bg-gray-100">
+      <div className="w-full">
+        <div className="bg-white">
           <ReactFlowProvider>
             <GraphComponent />
           </ReactFlowProvider>

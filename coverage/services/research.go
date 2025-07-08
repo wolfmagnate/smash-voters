@@ -27,11 +27,12 @@ func NewResearchService(externalAPIURL string) *ResearchService {
 }
 
 // ProcessResearch processes the research request and calls external API
-func (rs *ResearchService) ProcessResearch(ctx context.Context, query, theme, isPositive string) (*http.Response, error) {
+func (rs *ResearchService) ProcessResearch(ctx context.Context, req *models.ResearchRequest, theme, isPositive string) (*http.Response, error) {
 	// Create external API request
 	externalReq := models.ExternalResearchRequest{
-		Query:     query,
-		DrivePath: fmt.Sprintf("/%s/%s", theme, isPositive),
+		Query:      req.Query,
+		DrivePath:  fmt.Sprintf("/%s/%s", theme, isPositive),
+		WebhookURL: req.WebhookURL,
 	}
 
 	// Marshal request to JSON
@@ -41,14 +42,14 @@ func (rs *ResearchService) ProcessResearch(ctx context.Context, query, theme, is
 	}
 
 	// Create HTTP request with context
-	req, err := http.NewRequestWithContext(ctx, "POST", rs.externalAPIURL, bytes.NewBuffer(reqBody))
+	httpReq, err := http.NewRequestWithContext(ctx, "POST", rs.externalAPIURL, bytes.NewBuffer(reqBody))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create HTTP request: %w", err)
 	}
-	req.Header.Set("Content-Type", "application/json")
+	httpReq.Header.Set("Content-Type", "application/json")
 
 	// Send request to external API
-	resp, err := rs.httpClient.Do(req)
+	resp, err := rs.httpClient.Do(httpReq)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call external API: %w", err)
 	}

@@ -2,13 +2,15 @@ package models
 
 // ResearchRequest represents the incoming request structure for research API
 type ResearchRequest struct {
-	Query string `json:"query"`
+	Query      string `json:"query"`
+	WebhookURL string `json:"webhook_url"`
 }
 
 // ExternalResearchRequest represents the request sent to external research API
 type ExternalResearchRequest struct {
-	Query     string `json:"query"`
-	DrivePath string `json:"drive_path"`
+	Query      string `json:"query"`
+	DrivePath  string `json:"drive_path"`
+	WebhookURL string `json:"webhook_url"`
 }
 
 // DebateAnalysisRequest represents a request for debate graph creation

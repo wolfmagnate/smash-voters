@@ -1,10 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLatestElection } from "@/hooks/useLatestElection";
+import { Spinner } from "@/components/ui/Spinner";
 
 export default function HomePage() {
   const router = useRouter();
   const [daysLeft, setDaysLeft] = useState(0);
+  const { election, loading, error } = useLatestElection();
 
   useEffect(() => {
     const today = new Date();
@@ -14,10 +17,16 @@ export default function HomePage() {
     setDaysLeft(days > 0 ? days : 0);
   }, []);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 text-center bg-white">
       <h1 className="text-5xl font-bold text-black mb-15">
-        Policy Evaluation System（仮）
+        {error
+          ? "Policy Evaluation System（仮）"
+          : election?.name || "Policy Evaluation System（仮）"}
       </h1>
 
       <div className="max-w-4xl border-t-[5px] border-b-[5px] border-gray-300 py-6 mx-0 my-4 text-2xl font-extrabold text-gray-700 mb-15">

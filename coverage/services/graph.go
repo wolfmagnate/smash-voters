@@ -3,14 +3,17 @@ package services
 import (
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"cloud.google.com/go/storage"
 	"github.com/wolfmagnate/smash-voters/coverage/debate_graph_creator"
 	"github.com/wolfmagnate/smash-voters/coverage/domain"
 	"github.com/wolfmagnate/smash-voters/coverage/logic_graph_creator"
+	"google.golang.org/api/option"
 )
 
 // GraphService handles graph creation and local file operations
@@ -74,12 +77,12 @@ func NewGraphService() *GraphService {
 	}
 }
 
-// ProcessGraph reads document from Google Drive, creates logic graph, and uploads result
+// ProcessGraph reads document from Google Cloud Storage, creates logic graph, and saves result
 func (gs *GraphService) ProcessGraph(ctx context.Context, resultPath string) (string, error) {
-	// Read document from Google Drive
-	document, err := gs.readFromGoogleDrive(ctx, resultPath)
+	// Read document from Google Cloud Storage
+	document, err := gs.readFromDeployedFile(ctx, resultPath)
 	if err != nil {
-		return "", fmt.Errorf("failed to read document from Google Drive: %w", err)
+		return "", fmt.Errorf("failed to read document from Google Cloud Storage: %w", err)
 	}
 
 	// Create logic graph from document
@@ -109,59 +112,50 @@ func (gs *GraphService) ProcessGraph(ctx context.Context, resultPath string) (st
 	return graphPath, nil
 }
 
-// readFromGoogleDrive reads text content from Google Drive file
-func (gs *GraphService) readFromGoogleDrive(_ context.Context, _ string) (string, error) {
-	// Return a positive opinion research result document for testing
-	mockDocument := `
-研究テーマ: 原子力発電の継続利用について（賛成の立場から）
-
-## 調査結果：原子力発電継続を強く支持
-
-### 原子力発電継続の圧倒的なメリット
-
-1. 究極の安定電力供給
-   - 天候や時間に一切左右されない確実な発電
-   - ベースロード電源として国家電力の基盤を支える
-   - 電力需要の予測と計画が容易で、経済活動を安定化
-   - 停電リスクの大幅削減により、医療・インフラの安全確保
-
-2. 地球環境保護の切り札
-   - ライフサイクル全体でのCO2排出量が風力・太陽光と同等の極少量
-   - 気候変動阻止には原子力なしでは不可能
-   - 化石燃料依存からの完全脱却を実現
-   - 大気汚染物質の排出がゼロで健康被害を防止
-
-3. 圧倒的な経済効果
-   - 長期運転により発電コストが大幅に低減
-   - 高度技術産業の発展と雇用創出効果が絶大
-   - エネルギー自給率向上により国際情勢の影響を回避
-   - 電力料金の安定化で家計負担を軽減
-
-4. 技術革新の推進力
-   - 最先端安全技術の継続的発展
-   - 新型炉開発による更なる安全性向上
-   - 核燃料リサイクル技術の確立
-   - 医療・宇宙分野への技術転用効果
-
-### 安全性への万全な対策
-
-最新の安全基準と技術革新により、原子力発電所の安全性は飛躍的に向上している。
-多重防護システム、自然災害対策、テロ対策など、あらゆるリスクに対する対策が完備されており、
-現代の原子力技術は人類史上最も安全で信頼性の高いエネルギー源となっている。
-
-### 国際的な支持と実績
-
-フランス、韓国、フィンランドなど先進国が原子力を積極的に活用し、
-安定した経済発展と環境保護を両立している実績が、原子力発電の優秀性を証明している。
-国際エネルギー機関も脱炭素化には原子力が不可欠と明言している。
-
-### 結論
-
-原子力発電の継続は、日本の未来にとって絶対に必要不可欠である。
-安全性、経済性、環境保護のすべての観点から、原子力発電ほど優れたエネルギー源は存在しない。
-国民の生活向上と地球環境保護のため、原子力発電を積極的に推進すべきである。
-`
-	return mockDocument, nil
+// readFromDeployedFile reads text content from Google Cloud Storage using gsutil URI
+func (gs *GraphService) readFromDeployedFile(ctx context.Context, resultPath string) (string, error) {
+	// Parse gsutil URI (gs://bucket/path/to/file.txt)
+	if !strings.HasPrefix(resultPath, "gs://") {
+		return "", fmt.Errorf("invalid gsutil URI format, expected gs://bucket/path, got: %s", resultPath)
+	}
+	
+	// Remove gs:// prefix and split bucket and object
+	path := strings.TrimPrefix(resultPath, "gs://")
+	parts := strings.SplitN(path, "/", 2)
+	if len(parts) != 2 {
+		return "", fmt.Errorf("invalid gsutil URI format, expected gs://bucket/path, got: %s", resultPath)
+	}
+	
+	bucketName := parts[0]
+	objectName := parts[1]
+	
+	// Create Google Cloud Storage client with service account key
+	client, err := storage.NewClient(ctx, option.WithCredentialsFile("service_account_key.json"))
+	if err != nil {
+		return "", fmt.Errorf("failed to create GCS client: %w", err)
+	}
+	defer client.Close()
+	
+	// Get bucket handle
+	bucket := client.Bucket(bucketName)
+	
+	// Get object handle
+	object := bucket.Object(objectName)
+	
+	// Read object content
+	reader, err := object.NewReader(ctx)
+	if err != nil {
+		return "", fmt.Errorf("failed to create object reader: %w", err)
+	}
+	defer reader.Close()
+	
+	// Read all content
+	content, err := io.ReadAll(reader)
+	if err != nil {
+		return "", fmt.Errorf("failed to read object content: %w", err)
+	}
+	
+	return string(content), nil
 }
 
 // createLogicGraph creates a logic graph using the real LogicGraphCreator
@@ -173,7 +167,7 @@ func (gs *GraphService) createLogicGraph(ctx context.Context, document string) (
 // createDebateGraph creates a debate graph using the real DebateGraphCreator
 func (gs *GraphService) createDebateGraph(ctx context.Context, document string, logicGraph *domain.LogicGraph) (*domain.DebateGraph, error) {
 	// Use the actual DebateGraphCreator to create the debate graph from logic graph
-	return gs.debateGraphCreator.CreateDebateGraph(ctx, document, logicGraph)
+	return gs.debateGraphCreator.CreateDebateGraph(ctx, document, logicGraph, "")
 }
 
 // saveGraphToFile saves JSON content to a local file

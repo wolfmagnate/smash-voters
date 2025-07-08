@@ -3,6 +3,8 @@ package services
 import (
 	"context"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -74,12 +76,12 @@ func NewGraphService() *GraphService {
 	}
 }
 
-// ProcessGraph reads document from Google Drive, creates logic graph, and uploads result
+// ProcessGraph reads document from deployed .txt file, creates logic graph, and saves result
 func (gs *GraphService) ProcessGraph(ctx context.Context, resultPath string) (string, error) {
-	// Read document from Google Drive
-	document, err := gs.readFromGoogleDrive(ctx, resultPath)
+	// Read document from deployed .txt file
+	document, err := gs.readFromDeployedFile(ctx, resultPath)
 	if err != nil {
-		return "", fmt.Errorf("failed to read document from Google Drive: %w", err)
+		return "", fmt.Errorf("failed to read document from deployed file: %w", err)
 	}
 
 	// Create logic graph from document
@@ -109,59 +111,34 @@ func (gs *GraphService) ProcessGraph(ctx context.Context, resultPath string) (st
 	return graphPath, nil
 }
 
-// readFromGoogleDrive reads text content from Google Drive file
-func (gs *GraphService) readFromGoogleDrive(_ context.Context, _ string) (string, error) {
-	// Return a positive opinion research result document for testing
-	mockDocument := `
-研究テーマ: 原子力発電の継続利用について（賛成の立場から）
+// readFromDeployedFile reads text content from deployed .txt file URL
+func (gs *GraphService) readFromDeployedFile(ctx context.Context, resultPath string) (string, error) {
+	// Create HTTP request with context
+	req, err := http.NewRequestWithContext(ctx, "GET", resultPath, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create HTTP request: %w", err)
+	}
 
-## 調査結果：原子力発電継続を強く支持
+	// Make HTTP request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to fetch file from URL: %w", err)
+	}
+	defer resp.Body.Close()
 
-### 原子力発電継続の圧倒的なメリット
+	// Check HTTP status
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("HTTP request failed with status: %d", resp.StatusCode)
+	}
 
-1. 究極の安定電力供給
-   - 天候や時間に一切左右されない確実な発電
-   - ベースロード電源として国家電力の基盤を支える
-   - 電力需要の予測と計画が容易で、経済活動を安定化
-   - 停電リスクの大幅削減により、医療・インフラの安全確保
+	// Read response body
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
 
-2. 地球環境保護の切り札
-   - ライフサイクル全体でのCO2排出量が風力・太陽光と同等の極少量
-   - 気候変動阻止には原子力なしでは不可能
-   - 化石燃料依存からの完全脱却を実現
-   - 大気汚染物質の排出がゼロで健康被害を防止
-
-3. 圧倒的な経済効果
-   - 長期運転により発電コストが大幅に低減
-   - 高度技術産業の発展と雇用創出効果が絶大
-   - エネルギー自給率向上により国際情勢の影響を回避
-   - 電力料金の安定化で家計負担を軽減
-
-4. 技術革新の推進力
-   - 最先端安全技術の継続的発展
-   - 新型炉開発による更なる安全性向上
-   - 核燃料リサイクル技術の確立
-   - 医療・宇宙分野への技術転用効果
-
-### 安全性への万全な対策
-
-最新の安全基準と技術革新により、原子力発電所の安全性は飛躍的に向上している。
-多重防護システム、自然災害対策、テロ対策など、あらゆるリスクに対する対策が完備されており、
-現代の原子力技術は人類史上最も安全で信頼性の高いエネルギー源となっている。
-
-### 国際的な支持と実績
-
-フランス、韓国、フィンランドなど先進国が原子力を積極的に活用し、
-安定した経済発展と環境保護を両立している実績が、原子力発電の優秀性を証明している。
-国際エネルギー機関も脱炭素化には原子力が不可欠と明言している。
-
-### 結論
-
-原子力発電の継続は、日本の未来にとって絶対に必要不可欠である。
-安全性、経済性、環境保護のすべての観点から、原子力発電ほど優れたエネルギー源は存在しない。
-国民の生活向上と地球環境保護のため、原子力発電を積極的に推進すべきである。
-`
-	return mockDocument, nil
+	return string(body), nil
 }
 
 // createLogicGraph creates a logic graph using the real LogicGraphCreator

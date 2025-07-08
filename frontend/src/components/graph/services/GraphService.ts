@@ -62,6 +62,12 @@ const sampleData: DebateGraph = {
         {
           statement:
             "廃炉技術の開発と実証を並行して進めることで、将来の完全脱原発への道筋を作れる。",
+          evidence: [
+            {
+              url: "https://www.jpx.co.jp/english/news/2021/03/20210325_01.html",
+              title: "J-PARCの廃炉技術開発",
+            },
+          ],
         },
       ],
     },

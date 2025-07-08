@@ -28,10 +28,16 @@ func NewResearchService(externalAPIURL string) *ResearchService {
 
 // ProcessResearch processes the research request and calls external API
 func (rs *ResearchService) ProcessResearch(ctx context.Context, req *models.ResearchRequest, theme, isPositive string) (*http.Response, error) {
+	// Convert boolean string to positive/negative
+	stance := "negative"
+	if isPositive == "true" {
+		stance = "positive"
+	}
+	
 	// Create external API request
 	externalReq := models.ExternalResearchRequest{
 		Query:      req.Query,
-		DrivePath:  fmt.Sprintf("/%s/%s", theme, isPositive),
+		DrivePath:  fmt.Sprintf("%s/%s.txt", theme, stance),
 		WebhookURL: "https://smash-voters-coverage.onrender.com/api/v1/graph",
 	}
 

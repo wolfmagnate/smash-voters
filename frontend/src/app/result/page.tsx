@@ -96,6 +96,34 @@ export default function Result() {
   const sortedResults: PartyStat[] = [...dataToShow.results]
     .map((r) => ({ ...r, party_name: r.party_name.trim() }))
     .sort((a, b) => b.match_rate - a.match_rate);
+  
+  const partyRankMap = useMemo(() => {
+    const map: Record<string, number> = {};
+    sortedResults.forEach((r, idx) => {
+      map[r.party_name] = idx + 1; // idx=0 → 第1位
+    });
+    return map;
+  }, [sortedResults]);
+
+  const RankingTooltip = ({
+    active,
+    payload
+  }: {
+    active?: boolean;
+    payload?: any[];
+  }) => {
+    if (active && payload && payload.length > 0) {
+      const data = payload[0].payload as PartyStat;
+      const rank = partyRankMap[data.party_name] ?? '-';
+      return (
+        <div className="p-2 bg-white border rounded shadow">
+          <p className="font-bold">{data.party_name}</p>
+          <p>Ranking: {rank}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   /* -------- 早期リターン -------- */
   if (!matchRequest)
@@ -130,7 +158,7 @@ export default function Result() {
           <BarChart data={sortedResults} layout="vertical" margin={{ top: 10, right: 20, left: 20, bottom: 5 }} barCategoryGap={5}>
             <XAxis type="number" domain={[0, 100]} hide />
             <YAxis interval={0} type="category" dataKey="party_name" width={180} />
-            <Tooltip formatter={(v: number) => `${v}%`} />
+            <Tooltip content={<RankingTooltip />} />
             <Bar dataKey="match_rate">
               {sortedResults.map((r, idx) => (
                 <Cell key={idx} fill={PARTY_COLOR_MAP[r.party_name] ?? '#8884d8'}/>

@@ -22,7 +22,7 @@ export const createFlowElements = (
       type: "argument",
       position: { x: 0, y: 0 }, // dagreが後で調整する
       data: {
-        label: node.argument,
+        label: node.argument.statement,
         isRebuttal: node.is_rebuttal,
         importance: node.importance,
         uniqueness: node.uniqueness,
@@ -31,8 +31,8 @@ export const createFlowElements = (
   });
 
   data.edges.forEach((edge) => {
-    const sourceId = argumentNodeMap.get(edge.cause);
-    const targetId = argumentNodeMap.get(edge.effect);
+    const sourceId = argumentNodeMap.get(edge.cause_id);
+    const targetId = argumentNodeMap.get(edge.effect_id);
 
     if (sourceId && targetId) {
       let edgeLabel = "";

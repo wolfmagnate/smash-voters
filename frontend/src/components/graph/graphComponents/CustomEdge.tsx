@@ -5,6 +5,7 @@ import {
   getBezierPath,
   Position,
 } from "reactflow";
+import { Reasoning } from "../../../types/debate-graph";
 
 interface CustomEdgeProps {
   sourceX: number;
@@ -18,7 +19,7 @@ interface CustomEdgeProps {
   data?: {
     label?: string;
     isRebuttal?: boolean;
-    certainty?: string[];
+    certainty?: Reasoning[];
   };
 }
 

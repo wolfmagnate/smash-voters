@@ -1,12 +1,13 @@
 import React from "react";
 import { Handle, Position, useViewport } from "reactflow";
 import { ZOOM_THRESHOLDS } from "../constants/graphConstants";
+import { Reasoning } from "../../../types/debate-graph";
 
 interface ArgumentNodeData {
   label: string;
   isRebuttal: boolean;
-  importance?: string[];
-  uniqueness?: string[];
+  importance?: Reasoning[];
+  uniqueness?: Reasoning[];
 }
 
 const ArgumentNode = ({ data }: { data: ArgumentNodeData }) => {
@@ -66,7 +67,23 @@ const ArgumentNode = ({ data }: { data: ArgumentNodeData }) => {
               key={index}
               className="text-xs text-green-600 px-2 py-1 rounded mb-1 break-words"
             >
-              • {imp}
+              • {imp.statement}
+              {imp.evidence && imp.evidence.length > 0 && (
+                <div className="mt-1 ml-2">
+                  {imp.evidence.map((evidence, evidenceIndex) => (
+                    <div key={evidenceIndex} className="text-xs text-green-500">
+                      <a 
+                        href={evidence.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="underline hover:text-green-700"
+                      >
+                        {evidence.title}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -93,7 +110,23 @@ const ArgumentNode = ({ data }: { data: ArgumentNodeData }) => {
               key={index}
               className="text-xs text-purple-600 px-2 py-1 rounded mb-1 break-words"
             >
-              • {uniq}
+              • {uniq.statement}
+              {uniq.evidence && uniq.evidence.length > 0 && (
+                <div className="mt-1 ml-2">
+                  {uniq.evidence.map((evidence, evidenceIndex) => (
+                    <div key={evidenceIndex} className="text-xs text-purple-500">
+                      <a 
+                        href={evidence.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="underline hover:text-purple-700"
+                      >
+                        {evidence.title}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -11,7 +11,7 @@ import (
 
 func main() {
 	// Initialize services
-	researchService := services.NewResearchService("http://localhost:8000/research")
+	researchService := services.NewResearchService("https://smash-voters-deep-research.onrender.com/v1/research")
 	graphService := services.NewGraphService()
 
 	// Initialize handlers

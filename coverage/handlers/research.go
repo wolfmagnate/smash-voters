@@ -47,7 +47,7 @@ func (rh *ResearchHandler) HandleResearch(c echo.Context) error {
 	}
 
 	// Process research request
-	resp, err := rh.researchService.ProcessResearch(ctx, req.Query, theme, isPositive)
+	resp, err := rh.researchService.ProcessResearch(ctx, &req, theme, isPositive)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, models.ErrorResponse{
 			Error:   "Failed to process research request",

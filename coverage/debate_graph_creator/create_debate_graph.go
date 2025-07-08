@@ -12,7 +12,7 @@ type DebateGraphCreator struct {
 	DocumentSplitter        *DocumentSplitter
 }
 
-func (creator *DebateGraphCreator) CreateDebateGraph(ctx context.Context, document string, logicGraph *domain.LogicGraph) (*domain.DebateGraph, error) {
+func (creator *DebateGraphCreator) CreateDebateGraph(ctx context.Context, document string, logicGraph *domain.LogicGraph, citeDocument string) (*domain.DebateGraph, error) {
 	splittedDocument, err := creator.DocumentSplitter.SplitDocumentToParagraph(ctx, document)
 	if err != nil {
 		return nil, fmt.Errorf("failed to split document: %w", err)
@@ -20,7 +20,7 @@ func (creator *DebateGraphCreator) CreateDebateGraph(ctx context.Context, docume
 
 	var annotations []LogicAnnotation
 	for _, paragraph := range splittedDocument.Paragraphs {
-		paragraphAnnotations, err := creator.DebateAnnotationCreator.CreateDebateAnnotations(ctx, document, paragraph, logicGraph)
+		paragraphAnnotations, err := creator.DebateAnnotationCreator.CreateDebateAnnotations(ctx, document, paragraph, logicGraph, citeDocument)
 		if err != nil {
 			return nil, fmt.Errorf("failed to create debate annotations: %w", err)
 		}
@@ -41,7 +41,12 @@ func (creator *DebateGraphCreator) CreateDebateGraph(ctx context.Context, docume
 
 	// 1. LogicGraph からノードを DebateGraph にコピー
 	for _, lgNode := range logicGraph.Nodes {
-		dgNode := domain.NewDebateGraphNode(lgNode.Argument, false) // domainのコンストラクタ使用
+		// LogicGraphのArgument(string)をDebateGraphのArgument(*Assertion)に変換
+		argumentAssertion := &domain.Assertion{
+			Statement: lgNode.Argument,
+			Evidence:  []*domain.Evidence{},
+		}
+		dgNode := domain.NewDebateGraphNode(argumentAssertion, false) // domainのコンストラクタ使用
 		if err := debateGraph.AddNode(dgNode); err != nil {
 			// LogicGraphが整合性を持っていれば、通常このエラーは発生しないはず
 			return nil, fmt.Errorf("failed to add node '%s' to DebateGraph: %w", lgNode.Argument, err)

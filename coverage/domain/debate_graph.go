@@ -6,37 +6,25 @@ import (
 
 // DebateGraphNode は、ディベートの論理構造グラフにおける個々の「主張」や「事象」を表すノードです。
 type DebateGraphNode struct {
-	// Argument は、このノードが表現する具体的な主張の内容を文字列で保持します。
-	// 例：「大規模原発事故の壊滅的リスクが根本的に解消される」
-	Argument string
+	// Argument は、このノードが表現する具体的な主張の内容を保持します。
+	Argument *Assertion
 
 	// Causes は、このノード（結果）を引き起こす原因となった因果関係（エッジ）のスライス（リスト）です。
 	// グラフ構造を結果側から原因側へ辿る際に使用されます。
 	// このノードを Effect とするエッジがこのリストに含まれます。
 	Causes []*DebateGraphEdge
 
-	// Importance は、このノードの主張がなぜ重要なのかを補強するための論拠（文字列）のスライスです。
-	// メリットであればその価値の大きさや影響範囲の広さを、デメリットであればその深刻さや被害の甚大さを強調します。
-	// 例：「（原発事故は）人々の生活基盤と故郷を根底から破壊するため、そのリスクの解消は極めて重要である。」
-	Importance []string
+	// Importance は、このノードの主張がなぜ重要なのかを補強するための論拠のリストです。
+	Importance []*Assertion
 
-	// Uniqueness は、このノードの主張が、なぜ特定のプラン（現状維持 or 計画実行）でのみ発生するのか、
-	// その独自性や固有性を補強するための論拠（文字列）のスライスです。
-	// プラン間の「差分」を際立たせる役割を持ちます。
-	// 例：「放射性物質による広範囲・超長期の国土汚染は、他のいかなる発電方法の事故でも起こりえない、原発固有のリスクである。」
-	Uniqueness []string
+	// Uniqueness は、この主張がなぜ特定のプランでのみ発生するのかを補強するための論拠のリストです。
+	Uniqueness []*Assertion
 
-	// ImportanceRebuttals は、自分側からこのノードの「重要性」に対してなされた反論（文字列）のスライスです。
-	// 相手側の議論をある程度想定したうえで、先回りして反論するときに使います
-	// 「そのメリット・デメリットは主張するほど重要ではない」という趣旨の反論がここに入ります。
-	// 例：「その程度の経済効果は誤差の範囲であり、決定的なメリットとは言えない。」
-	ImportanceRebuttals []string
+	// ImportanceRebuttals は、「重要性」に対する反論のリストです。
+	ImportanceRebuttals []*Assertion
 
-	// UniquenessRebuttals は、自分側からこのノードの「独自性」に対してなされた反論（文字列）のスライスです。
-	// 相手側の議論をある程度想定したうえで、先回りして反論するときに使います
-	// 「その主張は我々のプランでも同様に成立するため、プラン間の差分にはならない」という趣旨の反論がここに入ります。
-	// 例：「その問題は、我々のプランでも別の政策によって解決可能である。」
-	UniquenessRebuttals []string
+	// UniquenessRebuttals は、「独自性」に対する反論のリストです。
+	UniquenessRebuttals []*Assertion
 
 	// IsRebuttal は、このノード自体が相手の議論に対する反論として提示されたものかどうかを示す真偽値です。
 	// trueの場合、このノードは反対意見、新たなデメリットの提示、各種反論など、反駁のために構築された主張であることを意味します。
@@ -51,43 +39,31 @@ type DebateGraphEdge struct {
 	// Effect は、因果関係における「結果」となるノードへのポインタです。
 	Effect *DebateGraphNode
 
-	// Certainty は、この因果関係（CauseがEffectを引き起こすこと）が、なぜ確実に発生すると言えるのかを
-	// 補強するための論拠（文字列）のスライスです。
-	// 具体的なデータ、統計、専門家の見解、過去の事例などがここに入ります。
-	// 例：「国際エネルギー機関（IRENA）の報告によれば、政策的支援が再エネ分野の雇用を創出することは明らかである。」
-	Certainty []string
+	// Certainty は、この因果関係が確実であることを補強するための論拠のリストです。
+	Certainty []*Assertion
 
-	// Uniqueness は、この「因果関係自体」が、なぜ特定のプランでのみ強く成立するのか、
-	// その独自性や固有性を補強するための論拠（文字列）のスライスです。
-	// 「相手方のプランでは、同じ原因からこの結果は導かれない」という差分を明確にします。
-	// 例：「原子力の安定供給能力は、天候に左右される再エネにはない固有の特性である。」
-	Uniqueness []string
+	// Uniqueness は、この因果関係の独自性を補強するための論拠のリストです。
+	Uniqueness []*Assertion
 
-	// CertaintyRebuttal は、自分の主張を行っている途中で因果関係の「確実性」に対してなされた反論（文字列）のスライスです。
-	// 相手側の議論をある程度想定したうえで、先回りして反論するときに使います
-	// 「その原因があっても、その結果が必ずしも発生するとは限らない」という趣旨の反論がここに入ります。
-	// 例：「賃金上昇がモチベーション向上に繋がるかは、職場環境など他の要因も大きい。」
-	CertaintyRebuttal []string
+	// CertaintyRebuttal は、「確実性」に対する反論のリストです。
+	CertaintyRebuttal []*Assertion
 
-	// UniquenessRebuttals は、自分の主張を行っている途中で因果関係の「独自性」に対してなされた反論（文字列）のスライスです。
-	// 相手側の議論をある程度想定したうえで、先回りして反論するときに使います
-	// 「我々のプランでも、別の原因から同じ結果を導き出せるため、その因果関係に頼る必要はない」という趣旨の反論がここに入ります。
-	// 例：「人手不足の解消は、賃金引き上げだけでなく、外国人材の活用でも達成可能だ。」
-	UniquenessRebuttals []string
+	// UniquenessRebuttals は、「独自性」に対する反論のリストです。
+	UniquenessRebuttals []*Assertion
 
 	// IsRebuttal は、このエッジ自体が相手の議論に対する反論の一部として提示されたものかどうかを示す真偽値です。
 	// 特に、相手の主張（ノード）を途中まで認め、そこから新たなデメリットや意図せざる結果を導き出す「ターンアラウンド」反論などで使用されます。
 	IsRebuttal bool
 }
 
-func NewDebateGraphNode(argument string, isRebuttal bool) *DebateGraphNode {
+func NewDebateGraphNode(argument *Assertion, isRebuttal bool) *DebateGraphNode {
 	return &DebateGraphNode{
 		Argument:            argument,
 		Causes:              make([]*DebateGraphEdge, 0),
-		Importance:          make([]string, 0),
-		Uniqueness:          make([]string, 0),
-		ImportanceRebuttals: make([]string, 0),
-		UniquenessRebuttals: make([]string, 0),
+		Importance:          make([]*Assertion, 0),
+		Uniqueness:          make([]*Assertion, 0),
+		ImportanceRebuttals: make([]*Assertion, 0),
+		UniquenessRebuttals: make([]*Assertion, 0),
 		IsRebuttal:          isRebuttal,
 	}
 }
@@ -96,10 +72,10 @@ func NewDebateGraphEdge(cause, effect *DebateGraphNode, isRebuttal bool) *Debate
 	return &DebateGraphEdge{
 		Cause:               cause,
 		Effect:              effect,
-		Certainty:           make([]string, 0),
-		Uniqueness:          make([]string, 0),
-		CertaintyRebuttal:   make([]string, 0),
-		UniquenessRebuttals: make([]string, 0),
+		Certainty:           make([]*Assertion, 0),
+		Uniqueness:          make([]*Assertion, 0),
+		CertaintyRebuttal:   make([]*Assertion, 0),
+		UniquenessRebuttals: make([]*Assertion, 0),
 		IsRebuttal:          isRebuttal,
 	}
 }
@@ -128,16 +104,16 @@ func NewDebateGraph() *DebateGraph {
 // AddNode はグラフにノードを追加します。
 // 同じArgumentを持つノードが既に存在する場合はエラーを返します。
 func (dg *DebateGraph) AddNode(node *DebateGraphNode) error {
-	if node == nil {
-		return fmt.Errorf("cannot add a nil node to DebateGraph")
+	if node == nil || node.Argument == nil {
+		return fmt.Errorf("cannot add a nil node or a node with a nil argument to DebateGraph")
 	}
-	if _, exists := dg.nodeMap[node.Argument]; exists {
+	if _, exists := dg.nodeMap[node.Argument.Statement]; exists {
 		// 既に存在する場合、エラーを返すか、既存ノードを返すか、何もしないかは設計次第。
 		// ここではエラーとして、呼び出し元に重複を通知します。
-		return fmt.Errorf("node with argument '%s' already exists in DebateGraph", node.Argument)
+		return fmt.Errorf("node with argument '%s' already exists in DebateGraph", node.Argument.Statement)
 	}
 	dg.Nodes = append(dg.Nodes, node)
-	dg.nodeMap[node.Argument] = node
+	dg.nodeMap[node.Argument.Statement] = node
 	return nil
 }
 
@@ -159,24 +135,24 @@ func (dg *DebateGraph) AddEdge(edge *DebateGraphEdge) error {
 	if edge == nil {
 		return fmt.Errorf("cannot add a nil edge to DebateGraph")
 	}
-	if edge.Cause == nil || edge.Effect == nil {
-		return fmt.Errorf("edge must have valid cause and effect nodes")
+	if edge.Cause == nil || edge.Effect == nil || edge.Cause.Argument == nil || edge.Effect.Argument == nil {
+		return fmt.Errorf("edge must have valid cause and effect nodes with non-nil arguments")
 	}
 
 	// エッジが参照するノードがグラフに存在することを確認
-	if _, exists := dg.nodeMap[edge.Cause.Argument]; !exists {
-		return fmt.Errorf("cause node '%s' of the edge is not in the graph", edge.Cause.Argument)
+	if _, exists := dg.nodeMap[edge.Cause.Argument.Statement]; !exists {
+		return fmt.Errorf("cause node '%s' of the edge is not in the graph", edge.Cause.Argument.Statement)
 	}
-	effectNodeInMap, effectNodeExists := dg.nodeMap[edge.Effect.Argument]
+	effectNodeInMap, effectNodeExists := dg.nodeMap[edge.Effect.Argument.Statement]
 	if !effectNodeExists {
-		return fmt.Errorf("effect node '%s' of the edge is not in the graph", edge.Effect.Argument)
+		return fmt.Errorf("effect node '%s' of the edge is not in the graph", edge.Effect.Argument.Statement)
 	}
 	// edge.Effectがマップ内のインスタンスと同じであることを保証（通常、呼び出し側が正しく構築すれば問題ない）
 	if edge.Effect != effectNodeInMap {
-		return fmt.Errorf("edge's effect node instance does not match the instance in the graph's nodeMap for argument '%s'", edge.Effect.Argument)
+		return fmt.Errorf("edge's effect node instance does not match the instance in the graph's nodeMap for argument '%s'", edge.Effect.Argument.Statement)
 	}
 
-	edgeKey := generateEdgeKey(edge.Cause.Argument, edge.Effect.Argument)
+	edgeKey := generateEdgeKey(edge.Cause.Argument.Statement, edge.Effect.Argument.Statement)
 	if _, exists := dg.edgeMap[edgeKey]; exists {
 		return nil
 	}

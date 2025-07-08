@@ -35,6 +35,7 @@ type CreateDebateAnnotationTemplateData struct {
 	TargetParagraph string
 	LogicGraphNodes string
 	LogicGraphEdges string
+	CiteDocument    string
 }
 
 type LogicAnnotations struct {
@@ -49,25 +50,25 @@ type LogicAnnotation struct {
 }
 
 type NodeAnnotation struct {
-	AnnotationType     string `json:"annotation_type"`     // "argument"または"importance"または"uniqueness"または"importance_rebuttal"または"uniqueness_rebuttal"のいずれか
-	Argument           string `json:"argument"`            // アノテーションを行う対象の論理構造グラフのノード
-	Importance         string `json:"importance"`          // なぜArgumentが重要であるかの理由を表す文章。AnnotationTypeが"importance"のときのみ有効
-	Uniqueness         string `json:"uniqueness"`          // なぜArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
-	ImportanceRebuttal string `json:"importance_rebuttal"` // なぜArgumentが重要ではないのかの理由を表す文章。AnnotationTypeが"importance_rebuttal"のときのみ有効
-	UniquenessRebuttal string `json:"uniqueness_rebuttal"` // なぜArgumentがStatus QuoとAffirmative Planの両方で発生してしまうかの理由を表す文章。AnnotationTypeが
+	AnnotationType     string            `json:"annotation_type"`               // "argument"または"importance"または"uniqueness"または"importance_rebuttal"または"uniqueness_rebuttal"のいずれか
+	Argument           string            `json:"argument"`                      // アノテーションを行う対象の論理構造グラフのノード
+	Importance         *domain.Assertion `json:"importance,omitempty"`          // なぜArgumentが重要であるかの理由を表す文章。AnnotationTypeが"importance"のときのみ有効
+	Uniqueness         *domain.Assertion `json:"uniqueness,omitempty"`          // なぜArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
+	ImportanceRebuttal *domain.Assertion `json:"importance_rebuttal,omitempty"` // なぜArgumentが重要ではないのかの理由を表す文章。AnnotationTypeが"importance_rebuttal"のときのみ有効
+	UniquenessRebuttal *domain.Assertion `json:"uniqueness_rebuttal,omitempty"` // なぜArgumentがStatus QuoとAffirmative Planの両方で発生してしまうかの理由を表す文章。AnnotationTypeが
 }
 
 type EdgeAnnotation struct {
-	AnnotationType     string `json:"annotation_type"`     // "certainty"または"uniqueness"または"certainty_rebuttal"または"uniqueness_rebuttal"のいずれか
-	CauseArgument      string `json:"cause_argument"`      // エッジの原因に対応する論理構造グラフのノード
-	EffectArgument     string `json:"effect_argument"`     // エッジの結果に対応する論理構造グラフのノード
-	Certainty          string `json:"certainty"`           // なぜCauseArgumentがEffectArgumentを引き起こす可能性が高いのかの理由を表す文章。AnnotationTypeが"certainty"のときのみ有効
-	Uniqueness         string `json:"uniqueness"`          // なぜCauseArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
-	CertaintyRebuttal  string `json:"certainty_rebuttal"`  // なぜCauseArgumentがEffectArgumentを発生させる可能性が低いのかを表す文章。AnnotationTypeが"certainty_rebuttal"のときのみ有効
-	UniquenessRebuttal string `json:"uniqueness_rebuttal"` // なぜCauseArgumentがStatus QuoとAffirmative Planの両方でEffectArgumentを引き起こすのかの理由を表す文章。AnnotationTypeが"uniqueness_rebuttal"のときのみ有効
+	AnnotationType     string            `json:"annotation_type"`               // "certainty"または"uniqueness"または"certainty_rebuttal"または"uniqueness_rebuttal"のいずれか
+	CauseArgument      string            `json:"cause_argument"`                // エッジの原因に対応する論理構造グラフのノード
+	EffectArgument     string            `json:"effect_argument"`               // エッジの結果に対応する論理構造グラフのノード
+	Certainty          *domain.Assertion `json:"certainty,omitempty"`           // なぜCauseArgumentがEffectArgumentを引き起こす可能性が高いのかの理由を表す文章。AnnotationTypeが"certainty"のときのみ有効
+	Uniqueness         *domain.Assertion `json:"uniqueness,omitempty"`          // なぜCauseArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
+	CertaintyRebuttal  *domain.Assertion `json:"certainty_rebuttal,omitempty"`  // なぜCauseArgumentがEffectArgumentを発生させる可能性が低いのかを表す文章。AnnotationTypeが"certainty_rebuttal"のときのみ有効
+	UniquenessRebuttal *domain.Assertion `json:"uniqueness_rebuttal,omitempty"` // なぜCauseArgumentがStatus QuoとAffirmative Planの両方でEffectArgumentを引き起こすのかの理由を表す文章。AnnotationTypeが"uniqueness_rebuttal"のときのみ有効
 }
 
-func (analyzer *DebateAnnotationCreator) CreateDebateAnnotations(ctx context.Context, document string, targetParagraph string, logicGraph *domain.LogicGraph) (*LogicAnnotations, error) {
+func (analyzer *DebateAnnotationCreator) CreateDebateAnnotations(ctx context.Context, document string, targetParagraph string, logicGraph *domain.LogicGraph, citeDocument string) (*LogicAnnotations, error) {
 	nodes := make([]string, 0)
 	for _, node := range logicGraph.Nodes {
 		nodes = append(nodes, node.Argument)
@@ -80,6 +81,7 @@ func (analyzer *DebateAnnotationCreator) CreateDebateAnnotations(ctx context.Con
 		TargetParagraph: targetParagraph,
 		LogicGraphNodes: strings.Join(nodes, "\n"),
 		LogicGraphEdges: strings.Join(causalRelationships, "\n"),
+		CiteDocument:    citeDocument,
 	}
 
 	var processedPrompt bytes.Buffer

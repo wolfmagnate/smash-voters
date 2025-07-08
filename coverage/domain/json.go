@@ -6,12 +6,12 @@ import (
 )
 
 type jsonNode struct {
-	Argument            string   `json:"argument"`
-	IsRebuttal          bool     `json:"is_rebuttal"`
-	Importance          []string `json:"importance,omitempty"`
-	Uniqueness          []string `json:"uniqueness,omitempty"`
-	ImportanceRebuttals []string `json:"importance_rebuttals,omitempty"`
-	UniquenessRebuttals []string `json:"uniqueness_rebuttals,omitempty"`
+	Argument            *Assertion   `json:"argument"`
+	IsRebuttal          bool         `json:"is_rebuttal"`
+	Importance          []*Assertion `json:"importance,omitempty"`
+	Uniqueness          []*Assertion `json:"uniqueness,omitempty"`
+	ImportanceRebuttals []*Assertion `json:"importance_rebuttals,omitempty"`
+	UniquenessRebuttals []*Assertion `json:"uniqueness_rebuttals,omitempty"`
 }
 
 func (n *DebateGraphNode) ToJSON() (string, error) {
@@ -37,13 +37,13 @@ func (n *DebateGraphNode) ToJSON() (string, error) {
 }
 
 type jsonEdge struct {
-	Cause               string   `json:"cause"`
-	Effect              string   `json:"effect"`
-	IsRebuttal          bool     `json:"is_rebuttal"`
-	Certainty           []string `json:"certainty,omitempty"`
-	Uniqueness          []string `json:"uniqueness,omitempty"`
-	CertaintyRebuttal   []string `json:"certainty_rebuttal,omitempty"`
-	UniquenessRebuttals []string `json:"uniqueness_rebuttals,omitempty"`
+	Cause               string       `json:"cause"`
+	Effect              string       `json:"effect"`
+	IsRebuttal          bool         `json:"is_rebuttal"`
+	Certainty           []*Assertion `json:"certainty,omitempty"`
+	Uniqueness          []*Assertion `json:"uniqueness,omitempty"`
+	CertaintyRebuttal   []*Assertion `json:"certainty_rebuttal,omitempty"`
+	UniquenessRebuttals []*Assertion `json:"uniqueness_rebuttals,omitempty"`
 }
 
 type jsonNodeRebuttal struct {
@@ -68,8 +68,8 @@ func (e *DebateGraphEdge) ToJSON() (string, error) {
 	}
 
 	jEdge := &jsonEdge{
-		Cause:               e.Cause.Argument,
-		Effect:              e.Effect.Argument,
+		Cause:               e.Cause.Argument.Statement,
+		Effect:              e.Effect.Argument.Statement,
 		IsRebuttal:          e.IsRebuttal,
 		Certainty:           e.Certainty,
 		Uniqueness:          e.Uniqueness,
@@ -103,6 +103,58 @@ type jsonGraph struct {
 	TurnArgumentRebuttals    []*jsonTurnArgumentRebuttal    `json:"turn_argument_rebuttals,omitempty"`
 }
 
+// ID-based JSON structs
+type IDJsonNode struct {
+	ID                  string       `json:"id"`
+	Argument            *Assertion   `json:"argument"`
+	IsRebuttal          bool         `json:"is_rebuttal"`
+	Importance          []*Assertion `json:"importance,omitempty"`
+	Uniqueness          []*Assertion `json:"uniqueness,omitempty"`
+	ImportanceRebuttals []*Assertion `json:"importance_rebuttals,omitempty"`
+	UniquenessRebuttals []*Assertion `json:"uniqueness_rebuttals,omitempty"`
+}
+
+type IDJsonEdge struct {
+	ID                  string       `json:"id"`
+	CauseID             string       `json:"cause_id"`
+	EffectID            string       `json:"effect_id"`
+	IsRebuttal          bool         `json:"is_rebuttal"`
+	Certainty           []*Assertion `json:"certainty,omitempty"`
+	Uniqueness          []*Assertion `json:"uniqueness,omitempty"`
+	CertaintyRebuttal   []*Assertion `json:"certainty_rebuttal,omitempty"`
+	UniquenessRebuttals []*Assertion `json:"uniqueness_rebuttals,omitempty"`
+}
+
+type IDJsonNodeRebuttal struct {
+	TargetNodeID   string `json:"target_node_id"`
+	RebuttalType   string `json:"rebuttal_type"`
+	RebuttalNodeID string `json:"rebuttal_node_id"`
+}
+
+type IDJsonEdgeRebuttal struct {
+	TargetEdgeID   string `json:"target_edge_id"`
+	RebuttalType   string `json:"rebuttal_type"`
+	RebuttalNodeID string `json:"rebuttal_node_id"`
+}
+
+type IDJsonCounterArgumentRebuttal struct {
+	RebuttalNodeID string `json:"rebuttal_node_id"`
+	TargetNodeID   string `json:"target_node_id"`
+}
+
+type IDJsonTurnArgumentRebuttal struct {
+	RebuttalNodeID string `json:"rebuttal_node_id"`
+}
+
+type IDJsonGraph struct {
+	Nodes                    []*IDJsonNode                    `json:"nodes"`
+	Edges                    []*IDJsonEdge                    `json:"edges"`
+	NodeRebuttals            []*IDJsonNodeRebuttal            `json:"node_rebuttals,omitempty"`
+	EdgeRebuttals            []*IDJsonEdgeRebuttal            `json:"edge_rebuttals,omitempty"`
+	CounterArgumentRebuttals []*IDJsonCounterArgumentRebuttal `json:"counter_argument_rebuttals,omitempty"`
+	TurnArgumentRebuttals    []*IDJsonTurnArgumentRebuttal    `json:"turn_argument_rebuttals,omitempty"`
+}
+
 func (dg *DebateGraph) ToJSON() (string, error) {
 	if dg == nil {
 		return "", fmt.Errorf("cannot convert nil DebateGraph to JSON")
@@ -132,8 +184,8 @@ func (dg *DebateGraph) ToJSON() (string, error) {
 	// エッジの変換
 	for _, edge := range dg.edgeMap {
 		jGraph.Edges = append(jGraph.Edges, &jsonEdge{
-			Cause:               edge.Cause.Argument,
-			Effect:              edge.Effect.Argument,
+			Cause:               edge.Cause.Argument.Statement,
+			Effect:              edge.Effect.Argument.Statement,
 			IsRebuttal:          edge.IsRebuttal,
 			Certainty:           edge.Certainty,
 			Uniqueness:          edge.Uniqueness,
@@ -144,41 +196,186 @@ func (dg *DebateGraph) ToJSON() (string, error) {
 
 	// ノード反論の変換
 	for _, r := range dg.NodeRebuttals {
+		if r.TargetNode == nil || r.TargetNode.Argument == nil || r.RebuttalNode == nil || r.RebuttalNode.Argument == nil {
+			continue // or return an error
+		}
 		jGraph.NodeRebuttals = append(jGraph.NodeRebuttals, &jsonNodeRebuttal{
-			TargetArgument:   r.TargetNode.Argument,
+			TargetArgument:   r.TargetNode.Argument.Statement,
 			RebuttalType:     r.RebuttalType,
-			RebuttalArgument: r.RebuttalNode.Argument,
+			RebuttalArgument: r.RebuttalNode.Argument.Statement,
 		})
 	}
 
 	// エッジ反論の変換
 	for _, r := range dg.EdgeRebuttals {
+		if r.TargetEdge == nil || r.TargetEdge.Cause == nil || r.TargetEdge.Cause.Argument == nil || r.TargetEdge.Effect == nil || r.TargetEdge.Effect.Argument == nil || r.RebuttalNode == nil || r.RebuttalNode.Argument == nil {
+			continue // or return an error
+		}
 		jGraph.EdgeRebuttals = append(jGraph.EdgeRebuttals, &jsonEdgeRebuttal{
-			TargetCauseArgument:  r.TargetEdge.Cause.Argument,
-			TargetEffectArgument: r.TargetEdge.Effect.Argument,
+			TargetCauseArgument:  r.TargetEdge.Cause.Argument.Statement,
+			TargetEffectArgument: r.TargetEdge.Effect.Argument.Statement,
 			RebuttalType:         r.RebuttalType,
-			RebuttalArgument:     r.RebuttalNode.Argument,
+			RebuttalArgument:     r.RebuttalNode.Argument.Statement,
 		})
 	}
 
 	// 反対意見の変換
 	for _, r := range dg.CounterArgumentRebuttals {
+		if r.TargetNode == nil || r.TargetNode.Argument == nil || r.RebuttalNode == nil || r.RebuttalNode.Argument == nil {
+			continue // or return an error
+		}
 		jGraph.CounterArgumentRebuttals = append(jGraph.CounterArgumentRebuttals, &jsonCounterArgumentRebuttal{
-			RebuttalArgument: r.RebuttalNode.Argument,
-			TargetArgument:   r.TargetNode.Argument,
+			RebuttalArgument: r.RebuttalNode.Argument.Statement,
+			TargetArgument:   r.TargetNode.Argument.Statement,
 		})
 	}
 
 	// ターンアラウンドの変換
 	for _, r := range dg.TurnArgumentRebuttals {
+		if r.RebuttalNode == nil || r.RebuttalNode.Argument == nil {
+			continue // or return an error
+		}
 		jGraph.TurnArgumentRebuttals = append(jGraph.TurnArgumentRebuttals, &jsonTurnArgumentRebuttal{
-			RebuttalArgument: r.RebuttalNode.Argument,
+			RebuttalArgument: r.RebuttalNode.Argument.Statement,
 		})
 	}
 
 	jsonData, err := json.MarshalIndent(jGraph, "", "    ")
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal DebateGraph to JSON: %w", err)
+	}
+
+	return string(jsonData), nil
+}
+
+func (dg *DebateGraph) ToIDJson() (string, error) {
+	if dg == nil {
+		return "", fmt.Errorf("cannot convert nil DebateGraph to ID JSON")
+	}
+
+	idGraph := &IDJsonGraph{
+		Nodes:                    make([]*IDJsonNode, 0, len(dg.Nodes)),
+		Edges:                    make([]*IDJsonEdge, 0, len(dg.edgeMap)),
+		NodeRebuttals:            make([]*IDJsonNodeRebuttal, 0, len(dg.NodeRebuttals)),
+		EdgeRebuttals:            make([]*IDJsonEdgeRebuttal, 0, len(dg.EdgeRebuttals)),
+		CounterArgumentRebuttals: make([]*IDJsonCounterArgumentRebuttal, 0, len(dg.CounterArgumentRebuttals)),
+		TurnArgumentRebuttals:    make([]*IDJsonTurnArgumentRebuttal, 0, len(dg.TurnArgumentRebuttals)),
+	}
+
+	nodeIDMap := make(map[*DebateGraphNode]string)
+	edgeIDMap := make(map[*DebateGraphEdge]string)
+	nodeCounter := 0
+	edgeCounter := 0
+
+	// Convert Nodes
+	for _, node := range dg.Nodes {
+		nodeID := fmt.Sprintf("node-%d", nodeCounter)
+		nodeIDMap[node] = nodeID
+		idGraph.Nodes = append(idGraph.Nodes, &IDJsonNode{
+			ID:                  nodeID,
+			Argument:            node.Argument,
+			IsRebuttal:          node.IsRebuttal,
+			Importance:          node.Importance,
+			Uniqueness:          node.Uniqueness,
+			ImportanceRebuttals: node.ImportanceRebuttals,
+			UniquenessRebuttals: node.UniquenessRebuttals,
+		})
+		nodeCounter++
+	}
+
+	// Convert Edges
+	for _, edge := range dg.edgeMap {
+		edgeID := fmt.Sprintf("edge-%d", edgeCounter)
+		edgeIDMap[edge] = edgeID
+		causeID, causeExists := nodeIDMap[edge.Cause]
+		if !causeExists {
+			return "", fmt.Errorf("cause node for edge %s not found in ID map", edge.Cause.Argument.Statement)
+		}
+		effectID, effectExists := nodeIDMap[edge.Effect]
+		if !effectExists {
+			return "", fmt.Errorf("effect node for edge %s not found in ID map", edge.Effect.Argument.Statement)
+		}
+
+		idGraph.Edges = append(idGraph.Edges, &IDJsonEdge{
+			ID:                  edgeID,
+			CauseID:             causeID,
+			EffectID:            effectID,
+			IsRebuttal:          edge.IsRebuttal,
+			Certainty:           edge.Certainty,
+			Uniqueness:          edge.Uniqueness,
+			CertaintyRebuttal:   edge.CertaintyRebuttal,
+			UniquenessRebuttals: edge.UniquenessRebuttals,
+		})
+		edgeCounter++
+	}
+
+	// Convert NodeRebuttals
+	for _, r := range dg.NodeRebuttals {
+		if r.TargetNode == nil || r.RebuttalNode == nil {
+			continue
+		}
+		targetNodeID, targetExists := nodeIDMap[r.TargetNode]
+		rebuttalNodeID, rebuttalExists := nodeIDMap[r.RebuttalNode]
+		if !targetExists || !rebuttalExists {
+			return "", fmt.Errorf("node(s) for node rebuttal not found in ID map")
+		}
+		idGraph.NodeRebuttals = append(idGraph.NodeRebuttals, &IDJsonNodeRebuttal{
+			TargetNodeID:   targetNodeID,
+			RebuttalType:   r.RebuttalType,
+			RebuttalNodeID: rebuttalNodeID,
+		})
+	}
+
+	// Convert EdgeRebuttals
+	for _, r := range dg.EdgeRebuttals {
+		if r.TargetEdge == nil || r.RebuttalNode == nil {
+			continue
+		}
+		targetEdgeID, targetExists := edgeIDMap[r.TargetEdge]
+		rebuttalNodeID, rebuttalExists := nodeIDMap[r.RebuttalNode]
+		if !targetExists || !rebuttalExists {
+			return "", fmt.Errorf("edge or node for edge rebuttal not found in ID map")
+		}
+		idGraph.EdgeRebuttals = append(idGraph.EdgeRebuttals, &IDJsonEdgeRebuttal{
+			TargetEdgeID:   targetEdgeID,
+			RebuttalType:   r.RebuttalType,
+			RebuttalNodeID: rebuttalNodeID,
+		})
+	}
+
+	// Convert CounterArgumentRebuttals
+	for _, r := range dg.CounterArgumentRebuttals {
+		if r.TargetNode == nil || r.RebuttalNode == nil {
+			continue
+		}
+		targetNodeID, targetExists := nodeIDMap[r.TargetNode]
+		rebuttalNodeID, rebuttalExists := nodeIDMap[r.RebuttalNode]
+		if !targetExists || !rebuttalExists {
+			return "", fmt.Errorf("node(s) for counter argument rebuttal not found in ID map")
+		}
+		idGraph.CounterArgumentRebuttals = append(idGraph.CounterArgumentRebuttals, &IDJsonCounterArgumentRebuttal{
+			RebuttalNodeID: rebuttalNodeID,
+			TargetNodeID:   targetNodeID,
+		})
+	}
+
+	// Convert TurnArgumentRebuttals
+	for _, r := range dg.TurnArgumentRebuttals {
+		if r.RebuttalNode == nil {
+			continue
+		}
+		rebuttalNodeID, rebuttalExists := nodeIDMap[r.RebuttalNode]
+		if !rebuttalExists {
+			return "", fmt.Errorf("rebuttal node for turn argument rebuttal not found in ID map")
+		}
+		idGraph.TurnArgumentRebuttals = append(idGraph.TurnArgumentRebuttals, &IDJsonTurnArgumentRebuttal{
+			RebuttalNodeID: rebuttalNodeID,
+		})
+	}
+
+	jsonData, err := json.MarshalIndent(idGraph, "", "    ")
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal ID DebateGraph to JSON: %w", err)
 	}
 
 	return string(jsonData), nil
@@ -200,7 +397,7 @@ func NewDebateGraphFromJSON(jsonData string) (*DebateGraph, error) {
 		node.ImportanceRebuttals = jNode.ImportanceRebuttals
 		node.UniquenessRebuttals = jNode.UniquenessRebuttals
 		if err := dg.AddNode(node); err != nil {
-			return nil, fmt.Errorf("failed to add node '%s' from JSON: %w", jNode.Argument, err)
+			return nil, fmt.Errorf("failed to add node '%s' from JSON: %w", jNode.Argument.Statement, err)
 		}
 	}
 

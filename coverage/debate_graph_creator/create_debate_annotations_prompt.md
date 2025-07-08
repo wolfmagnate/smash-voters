@@ -25,23 +25,37 @@ type LogicAnnotation struct {
 }
 
 type NodeAnnotation struct {
-    AnnotationType string `json:"annotation_type"` // "argument"または"importance"または"uniqueness"または"importance_rebuttal"または"uniqueness_rebuttal"のいずれか
-    Argument string `json:"argument"` // アノテーションを行う対象の論理構造グラフのノード
-    Importance string `json:"importance"` // なぜArgumentが重要であるかの理由を表す文章。AnnotationTypeが"importance"のときのみ有効
-    Uniqueness string `json:"uniqueness"` // なぜArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
-    ImportanceRebuttal string `json:"importance_rebuttal"` // なぜArgumentが重要ではないのかの理由を表す文章。AnnotationTypeが"importance_rebuttal"のときのみ有効
-    UniquenessRebuttal string `json:"uniqueness_rebuttal"` // なぜArgumentがStatus QuoとAffirmative Planの両方で発生してしまうかの理由を表す文章。AnnotationTypeが
+    AnnotationType     string `json:"annotation_type"`     // "argument"または"importance"または"uniqueness"または"importance_rebuttal"または"uniqueness_rebuttal"のいずれか
+    Argument           string `json:"argument"`            // アノテーションを行う対象の論理構造グラフのノード
+    Importance         *Assertion `json:"importance,omitempty"`          // なぜArgumentが重要であるかの理由を表す文章。AnnotationTypeが"importance"のときのみ有効
+    Uniqueness         *Assertion `json:"uniqueness,omitempty"`          // なぜArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
+    ImportanceRebuttal *Assertion `json:"importance_rebuttal,omitempty"` // なぜArgumentが重要ではないのかの理由を表す文章。AnnotationTypeが"importance_rebuttal"のときのみ有効
+    UniquenessRebuttal *Assertion `json:"uniqueness_rebuttal,omitempty"` // なぜArgumentがStatus QuoとAffirmative Planの両方で発生してしまうかの理由を表す文章。AnnotationTypeが
 }
 
 type EdgeAnnotation struct {
-    AnnotationType string `json:"annotation_type"` // "certainty"または"uniqueness"または"certainty_rebuttal"または"uniqueness_rebuttal"のいずれか
-    CauseArgument string `json:"cause_argument"` // エッジの原因に対応する論理構造グラフのノード
-    EffectArgument string `json:"effect_argument"` // エッジの結果に対応する論理構造グラフのノード
-    Certainty string `json:"certainty"` // なぜCauseArgumentがEffectArgumentを引き起こす可能性が高いのかの理由を表す文章。AnnotationTypeが"certainty"のときのみ有効
-    Uniqueness string `json:"uniqueness"` // なぜCauseArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
-    CertaintyRebuttal string `json:"certainty_rebuttal"` // なぜCauseArgumentがEffectArgumentを発生させる可能性が低いのかを表す文章。AnnotationTypeが"certainty_rebuttal"のときのみ有効
-    UniquenessRebuttal string `json:"uniqueness_rebuttal"` // なぜCauseArgumentがStatus QuoとAffirmative Planの両方でEffectArgumentを引き起こすのかの理由を表す文章。AnnotationTypeが"uniqueness_rebuttal"のときのみ有効
+    AnnotationType     string `json:"annotation_type"`     // "certainty"または"uniqueness"または"certainty_rebuttal"または"uniqueness_rebuttal"のいずれか
+    CauseArgument      string `json:"cause_argument"`      // エッジの原因に対応する論理構造グラフのノード
+    EffectArgument     string `json:"effect_argument"`     // エッジの結果に対応する論理構造グラフのノード
+    Certainty          *Assertion `json:"certainty,omitempty"`           // なぜCauseArgumentがEffectArgumentを引き起こす可能性が高いのかの理由を表す文章。AnnotationTypeが"certainty"のときのみ有効
+    Uniqueness         *Assertion `json:"uniqueness,omitempty"`          // なぜCauseArgumentがStatus QuoまたはAffirmative Planでのみ発生するのかの理由を表す文章。AnnotationTypeが"uniqueness"のときのみ有効
+    CertaintyRebuttal  *Assertion `json:"certainty_rebuttal,omitempty"`  // なぜCauseArgumentがEffectArgumentを発生させる可能性が低いのかを表す文章。AnnotationTypeが"certainty_rebuttal"のときのみ有効
+    UniquenessRebuttal *Assertion `json:"uniqueness_rebuttal,omitempty"` // なぜCauseArgumentがStatus QuoとAffirmative Planの両方でEffectArgumentを引き起こすのかの理由を表す文章。AnnotationTypeが"uniqueness_rebuttal"のときのみ有効
 }
+
+// Assertion は、特定の性質（重要性、独自性、確実性など）に関する
+// 一つのまとまった主張（Statement）と、それを裏付ける証拠（Evidence）のセットです。
+type Assertion struct {
+	Statement string      `json:"statement"`          // 主張の内容（例：「安定供給により産業競争力が向上する」）
+	Evidence  []*Evidence `json:"evidence,omitempty"` // その主張を裏付ける証拠のリスト。もし具体的な証拠が示されていないならemptyにしてください
+}
+
+// Evidence は、特定の主張や論拠を裏付ける具体的な証拠情報を表します。
+type Evidence struct {
+	URL   string `json:"url"`   // 証拠となる情報源のURL
+	Title string `json:"title"` // 情報源のタイトル（例：「経産省のエネルギー白書」）
+}
+
 ```
 
 # 論理構造グラフの説明
@@ -179,6 +193,10 @@ Affirmative Planとして「週休3日制の導入」が提案され、そのメ
 論理構造グラフのノードの内容や、分析対象のtarget_text、エッジの"cause_argument"と"effect_argument"などは参照するべき文章があるため、忠実にそれらと同じ文字列にする必要があります。
 しかし、重要性、確実性、独自性およびそれらへの反論は論理的な意味を考えて、あなたが自然な文章を作成する必要があります。
 
+## Evidenceを収集する
+与えられる文章に具体的な証拠が紐づけられている場合、そのURLとタイトルをEvidence構造体で表現してください。ただし、全ての主張や重要性などに証拠があるわけではないため、確実なURLが存在するときのみ指摘してください。
+なお、引用元の文献リストは別途与えます。
+
 # 具体的な動作例
 ## 分析対象の文章
 
@@ -238,7 +256,10 @@ Affirmative Planとして「週休3日制の導入」が提案され、そのメ
       "node_annotation": {
         "annotation_type": "importance",
         "argument": "生徒の自己肯定感と創造性の向上",
-        "importance": "現代社会では多様性が尊重される"
+        "importance": {
+          "statement": "現代社会では多様性が尊重される",
+          "evidence": []
+        }
       }
     },
     {
@@ -257,17 +278,23 @@ Affirmative Planとして「週休3日制の導入」が提案され、そのメ
         "annotation_type": "uniqueness",
         "cause_argument": "中学校における制服の着用",
         "effect_argument": "生徒の個性が失われる",
-        "uniqueness": "制服により服装による表現は根本的に制限されてしまう"
+        "uniqueness": {
+          "statement": "制服により服装による表現は根本的に制限されてしまう",
+          "evidence": []
+        }
       }
     },
     {
       "target_type": "edge",
       "target_text": "高価な制服を購入する必要がなくなることは、多くの家庭にとって直接的な経済的メリットとなるでしょう。",
-      "node_annotation": {
+      "edge_annotation": {
         "annotation_type": "certainty",
         "cause_argument": "中学校における制服廃止",
         "effect_argument": "制服購入費用の削減",
-        "certainty": "制服は高価である"
+        "certainty": {
+          "statement": "制服は高価である",
+          "evidence": []
+        }
       }
     },
     {
@@ -286,7 +313,10 @@ Affirmative Planとして「週休3日制の導入」が提案され、そのメ
         "annotation_type": "certainty",
         "cause_argument": "中学校における制服廃止",
         "effect_argument": "制服購入費用の削減",
-        "certainty": "子供たちは成長期なので、頻繁に制服を買い替える必要がある"
+        "certainty": {
+          "statement": "子供たちは成長期なので、頻繁に制服を買い替える必要がある",
+          "evidence": []
+        }
       }
     }
   ]
@@ -315,6 +345,10 @@ target_textはノードやエッジの分析の根拠になる文章です。そ
 ## 分析対象の文章
 
 {{.Document}}
+
+## 引用元の文献リスト
+
+{{.CiteDocument}}
 
 ## 分析対象の段落
 

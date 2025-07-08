@@ -4,18 +4,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/wolfmagnate/smash-voters/bff/infra"
 	"github.com/wolfmagnate/smash-voters/bff/infra/db"
 )
 
 func main() {
-	// Load .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
-
 	// Initialize database connection
 	pool, err := infra.NewPgxPool()
 	if err != nil {

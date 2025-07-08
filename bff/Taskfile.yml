@@ -5,7 +5,8 @@ dotenv: ['.env']
 vars:
   MIGRATIONS_DIR: infra/migrations
   DATABASE_URL: "postgres://{{.POSTGRES_USER}}:{{.POSTGRES_PASSWORD}}@{{.POSTGRES_HOST}}:{{.POSTGRES_PORT}}/{{.POSTGRES_DBNAME}}?sslmode=disable"
-  PORT: '{{.PORT}}' # Default port for the application
+  REMOTE_DATABASE_URL: "postgres://{{.REMOTE_POSTGRES_USER}}:{{.REMOTE_POSTGRES_PASSWORD}}@{{.REMOTE_POSTGRES_HOST}}:{{.REMOTE_POSTGRES_PORT}}/{{.REMOTE_POSTGRES_DBNAME}}"
+  PORT: '{{.PORT}}'
 
 tasks:
   install-devtools:
@@ -36,6 +37,7 @@ tasks:
     requires:
       vars: [CLI_ARGS]
 
+  # Local Migration Tasks
   migrate-up:
     desc: Apply all pending database migrations
     cmds:
@@ -56,11 +58,51 @@ tasks:
     cmds:
       - migrate -database "{{.DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} version
 
+  # Remote Migration Tasks
+  remote-migrate-up:
+    desc: Apply all pending database migrations on remote
+    cmds:
+      - migrate -database "{{.REMOTE_DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} up
+
+  remote-migrate-down:
+    desc: Roll back the last applied migration on remote
+    cmds:
+      - migrate -database "{{.REMOTE_DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} down 1
+
+  remote-migrate-down-all:
+    desc: Roll back all database migrations on remote
+    cmds:
+      - migrate -database "{{.REMOTE_DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} down all
+
+  remote-migrate-status:
+    desc: Show current migration status on remote
+    cmds:
+      - migrate -database "{{.REMOTE_DATABASE_URL}}" -path {{.MIGRATIONS_DIR}} version
+
+  # Seeder Tasks
   seed:
-    desc: Run the database seeder
+    desc: Run the database seeder (local)
     cmds:
       - go run cmd/seeder/main.go
+    env:
+      POSTGRES_USER: "{{.POSTGRES_USER}}"
+      POSTGRES_PASSWORD: "{{.POSTGRES_PASSWORD}}"
+      POSTGRES_HOST: "{{.POSTGRES_HOST}}"
+      POSTGRES_PORT: "{{.POSTGRES_PORT}}"
+      POSTGRES_DBNAME: "{{.POSTGRES_DBNAME}}"
 
+  seed-remote:
+    desc: Run the database seeder (remote)
+    cmds:
+      - go run cmd/seeder/main.go
+    env:
+      POSTGRES_USER: "{{.REMOTE_POSTGRES_USER}}"
+      POSTGRES_PASSWORD: "{{.REMOTE_POSTGRES_PASSWORD}}"
+      POSTGRES_HOST: "{{.REMOTE_POSTGRES_HOST}}"
+      POSTGRES_PORT: "{{.REMOTE_POSTGRES_PORT}}"
+      POSTGRES_DBNAME: "{{.REMOTE_POSTGRES_DBNAME}}"
+
+  # Application Tasks
   run:
     desc: Run the main application
     cmds:

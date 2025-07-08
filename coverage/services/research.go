@@ -32,7 +32,7 @@ func (rs *ResearchService) ProcessResearch(ctx context.Context, req *models.Rese
 	externalReq := models.ExternalResearchRequest{
 		Query:      req.Query,
 		DrivePath:  fmt.Sprintf("/%s/%s", theme, isPositive),
-		WebhookURL: req.WebhookURL,
+		WebhookURL: "https://smash-voters-coverage.onrender.com/api/v1/graph",
 	}
 
 	// Marshal request to JSON

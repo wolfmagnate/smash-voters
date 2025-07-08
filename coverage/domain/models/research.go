@@ -2,8 +2,7 @@ package models
 
 // ResearchRequest represents the incoming request structure for research API
 type ResearchRequest struct {
-	Query      string `json:"query"`
-	WebhookURL string `json:"webhook_url"`
+	Query string `json:"query"`
 }
 
 // ExternalResearchRequest represents the request sent to external research API

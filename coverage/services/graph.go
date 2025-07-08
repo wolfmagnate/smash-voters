@@ -150,7 +150,7 @@ func (gs *GraphService) createLogicGraph(ctx context.Context, document string) (
 // createDebateGraph creates a debate graph using the real DebateGraphCreator
 func (gs *GraphService) createDebateGraph(ctx context.Context, document string, logicGraph *domain.LogicGraph) (*domain.DebateGraph, error) {
 	// Use the actual DebateGraphCreator to create the debate graph from logic graph
-	return gs.debateGraphCreator.CreateDebateGraph(ctx, document, logicGraph)
+	return gs.debateGraphCreator.CreateDebateGraph(ctx, document, logicGraph, "")
 }
 
 // saveGraphToFile saves JSON content to a local file

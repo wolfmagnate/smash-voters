@@ -1,3 +1,4 @@
+// src/app/layout.tsx
 import type { Metadata } from 'next';
 import { Noto_Sans_JP as NotoSansJP } from 'next/font/google';
 import './globals.css';
@@ -15,8 +16,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={notoSans.className}>
-      <body>{children}</body>
+    <html lang="ja" className={`${notoSans.className} bg-white`}>
+      <body className="min-h-screen bg-white">
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,4 +1,4 @@
-// src/pages/quiz/index.tsx
+// src/app/quiz/page.tsx
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -53,7 +53,7 @@ export default function Quiz() {
   const currentQuestion = questions[current];
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4 bg-transparent">
+    <div className="w-full max-w-7xl mx-auto p-4">
       <div className="relative h-6 bg-gray-300 rounded-xl overflow-hidden mt-auto mb-10">
         <div
           className="h-full bg-green-500 rounded-xl transition-all duration-300 ease-in-out"

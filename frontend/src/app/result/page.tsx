@@ -117,8 +117,8 @@ export default function Result() {
       <section className="text-center space-y-6 mb-10">
         <h1 className="text-4xl font-bold">マッチング結果</h1>
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-xl inline-block shadow-lg">
-          <h2 className="text-2xl font-bold mb-2">あなたに最も適した政党</h2>
-          <h3 className="text-3xl font-bold mb-1">{best.party_name}</h3>
+          <h2 className="text-2xl font-medium mb-4">あなたに最も適した政党</h2>
+          <h3 className="text-3xl font-bold mb-5">{best.party_name}</h3>
           <p className="text-xl">マッチ度: {best.match_rate}%</p>
         </div>
       </section>
@@ -127,7 +127,7 @@ export default function Result() {
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-4 text-center">全政党との適合度</h2>
         <ResponsiveContainer width="100%" height={700}>
-          <BarChart data={sortedResults} layout="vertical" margin={{ top: 40, right: 20, left: 20, bottom: 5 }} barCategoryGap={5}>
+          <BarChart data={sortedResults} layout="vertical" margin={{ top: 10, right: 20, left: 20, bottom: 5 }} barCategoryGap={5}>
             <XAxis type="number" domain={[0, 100]} hide />
             <YAxis interval={0} type="category" dataKey="party_name" width={180} />
             <Tooltip formatter={(v: number) => `${v}%`} />
@@ -135,7 +135,7 @@ export default function Result() {
               {sortedResults.map((r, idx) => (
                 <Cell key={idx} fill={PARTY_COLOR_MAP[r.party_name] ?? '#8884d8'}/>
               ))}
-              <LabelList dataKey="match_rate" position="right" formatter={(v: number) => `${v}%`} />
+              <LabelList dataKey="match_rate" position="right" formatter={(v: number) => `${v}%`}/>
             </Bar>
           </BarChart>
         </ResponsiveContainer>

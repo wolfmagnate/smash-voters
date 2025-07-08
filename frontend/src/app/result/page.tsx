@@ -42,12 +42,25 @@ const SAMPLE_RESULT: MatchResult = {
   ],
 };
 
-// 15 色パレット（不足時は循環）
-const COLOR_PALETTE = [
-  '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
-  '#ec4899', '#f97316', '#06b6d4', '#84cc16', '#e11d48',
-  '#0ea5e9', '#a855f7', '#dc2626', '#0891b2', '#d97706',
-];
+// ------------------ 政党カラー対応表 ------------------
+const PARTY_COLOR_MAP: Record<string, string> = {
+  立憲民主党: '#184589',
+  みんなでつくる党: '#F8EA0D',
+  公明党: '#F55881',
+  再生の道: '#5E005E',
+  国民民主党: '#F8BC00',
+  日本維新の会: '#6FBA2C',
+  日本共産党: '#DB001C',
+  れいわ新選組: '#E4027E',
+  自由民主党: '#3CA324',
+  社会民主党: '#01A8EC',
+  日本保守党: '#0A82DC',
+  無所属: '#DFDFDF',
+  参政党: '#D85D0F',
+  諸派: '#D3D3D3',
+  NHK党: '#ffef00',
+};
+
 
 interface PartyStat {
   party_name: string;
@@ -119,8 +132,8 @@ export default function Result() {
             <YAxis interval={0} type="category" dataKey="party_name" width={180} />
             <Tooltip formatter={(v: number) => `${v}%`} />
             <Bar dataKey="match_rate">
-              {sortedResults.map((_, idx) => (
-                <Cell key={idx} fill={COLOR_PALETTE[idx % COLOR_PALETTE.length]}/>
+              {sortedResults.map((r, idx) => (
+                <Cell key={idx} fill={PARTY_COLOR_MAP[r.party_name] ?? '#8884d8'}/>
               ))}
               <LabelList dataKey="match_rate" position="right" formatter={(v: number) => `${v}%`} />
             </Bar>

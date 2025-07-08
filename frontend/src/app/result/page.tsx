@@ -1,6 +1,12 @@
-// src/pages/result/index.tsx
 'use client';
+// src/app/result/page.tsx
+// ------------------------------------------------------------
+// Result UI – 政党マッチング
+// ------------------------------------------------------------
+
 import React, { useEffect, useState } from 'react';
+import { MatchResult } from '@/types/matching';
+const [data, setData] = useState<MatchResult | null>(null);
 
 export default function Result() {
   const [data, setData] = useState(null);

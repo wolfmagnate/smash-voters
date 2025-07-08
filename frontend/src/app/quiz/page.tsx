@@ -2,11 +2,10 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./page.module.css";
 import Graph from "../../components/graph/ui/graph";
+import SelectApproveOrReject from "./_components/SelectApproveOrReject";
 
 const TOTAL_QUESTIONS = 20;
-const options = ["反対", "やや反対", "中立", "やや賛成", "賛成"];
 
 export default function Quiz() {
   const router = useRouter();
@@ -30,34 +29,29 @@ export default function Quiz() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.progressBar}>
+    <div className="w-full max-w-7xl mx-auto p-4 bg-transparent">
+      <div className="relative h-6 bg-gray-300 rounded-xl overflow-hidden mt-auto mb-10">
         <div
-          className={styles.filled}
+          className="h-full bg-green-500 rounded-xl transition-all duration-300 ease-in-out"
           style={{ width: `${((current + 1) / TOTAL_QUESTIONS) * 100}%` }}
         />
-        <span className={styles.progressText}>{`${
+        <span className="absolute top-0 left-1/2 transform -translate-x-1/2 font-bold leading-6 text-black">{`${
           current + 1
         } / ${TOTAL_QUESTIONS}`}</span>
       </div>
 
-      <h3 className={styles.subtitle}> 政策に関する法律</h3>
-      <h1 className={styles.title}>問題の説明</h1>
-      <p className={styles.description}>
+      <h3 className="block w-fit mx-auto mb-5 px-3 py-1.5 bg-yellow-200 rounded-3xl text-lg font-extrabold text-black text-center">
+        {" "}
+        政策に関する法律
+      </h3>
+      <h1 className="text-3xl font-bold text-black mb-6 text-center">
+        問題の説明
+      </h1>
+      <p className="text-xl text-black leading-relaxed mb-10 text-center">
         ここに政策に関する詳細な説明が入ります。ユーザーに問題の背景や要点を伝えます。
       </p>
 
-      <div className={styles.buttonGroup}>
-        {options.map((opt) => (
-          <button
-            key={opt}
-            className={styles.button}
-            onClick={() => handleAnswer(opt)}
-          >
-            {opt}
-          </button>
-        ))}
-      </div>
+      <SelectApproveOrReject onSelect={handleAnswer} className="mb-10" />
       <Graph />
     </div>
   );

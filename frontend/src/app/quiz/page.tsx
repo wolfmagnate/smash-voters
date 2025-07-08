@@ -8,29 +8,33 @@ import { useQuestions } from "./hooks/useQuestions";
 import { useLatestElection } from "@/hooks/useLatestElection";
 import { Spinner } from "@/components/ui/Spinner";
 
-const TOTAL_QUESTIONS = 20;
-
 export default function Quiz() {
   const router = useRouter();
   const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<string[]>(
-    Array(TOTAL_QUESTIONS).fill("")
-  );
+  const [answers, setAnswers] = useState<number[]>([]);
 
   const { election } = useLatestElection();
   const { questions, loading, error } = useQuestions(election?.id || null);
 
-  const handleAnswer = (choice: string) => {
+  const handleAnswer = (choice: number) => {
     // 回答を保存
     const newAnswers = [...answers];
     newAnswers[current] = choice;
     setAnswers(newAnswers);
-    // 次の質問へ、または結果ページへ移動
+
+    // 次の質問へ、または重要項目選択ページへ移動
     if (current < questions.length - 1) {
       setCurrent(current + 1);
     } else {
-      //const query = encodeURIComponent(newAnswers.join(','));
-      router.push("/result"); //?answers=${query}`);
+      // 全問回答完了 - 重要項目選択ページへ
+      const answersData = questions.map((q, index) => ({
+        question_id: q.id,
+        answer: newAnswers[index],
+      }));
+      const queryParams = new URLSearchParams({
+        answers: JSON.stringify(answersData),
+      });
+      router.push(`/quiz/important?${queryParams.toString()}`);
     }
   };
 

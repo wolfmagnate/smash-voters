@@ -22,19 +22,19 @@ export default function HomePage() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8 text-center bg-white">
-      <h1 className="text-5xl font-bold text-black mb-15">
+    <div className="w-full mx-auto px-4 py-8 text-center">
+      <h1 className="text-5xl font-bold text-black mb-5">
         {error
           ? "Policy Evaluation System（仮）"
           : election?.name || "Policy Evaluation System（仮）"}
       </h1>
 
-      <div className="max-w-4xl border-t-[5px] border-b-[5px] border-gray-300 py-6 mx-0 my-4 text-2xl font-extrabold text-gray-700 mb-15">
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 py-15 mx-0 my-20 text-2xl font-extrabold text-white p-15 rounded-xl inline-block shadow-lg text-center">
         {daysLeft === 0 ? (
           <>今日は投票日です！</>
         ) : (
           <>
-            次回の投票日は7月29日（仮）
+            次回の投票日は7月29日
             <br />
             あと{daysLeft}日
           </>

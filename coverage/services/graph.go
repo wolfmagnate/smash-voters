@@ -4,15 +4,16 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"cloud.google.com/go/storage"
 	"github.com/wolfmagnate/smash-voters/coverage/debate_graph_creator"
 	"github.com/wolfmagnate/smash-voters/coverage/domain"
 	"github.com/wolfmagnate/smash-voters/coverage/logic_graph_creator"
+	"google.golang.org/api/option"
 )
 
 // GraphService handles graph creation and local file operations
@@ -76,12 +77,12 @@ func NewGraphService() *GraphService {
 	}
 }
 
-// ProcessGraph reads document from deployed .txt file, creates logic graph, and saves result
+// ProcessGraph reads document from Google Cloud Storage, creates logic graph, and saves result
 func (gs *GraphService) ProcessGraph(ctx context.Context, resultPath string) (string, error) {
-	// Read document from deployed .txt file
+	// Read document from Google Cloud Storage
 	document, err := gs.readFromDeployedFile(ctx, resultPath)
 	if err != nil {
-		return "", fmt.Errorf("failed to read document from deployed file: %w", err)
+		return "", fmt.Errorf("failed to read document from Google Cloud Storage: %w", err)
 	}
 
 	// Create logic graph from document
@@ -111,34 +112,50 @@ func (gs *GraphService) ProcessGraph(ctx context.Context, resultPath string) (st
 	return graphPath, nil
 }
 
-// readFromDeployedFile reads text content from deployed .txt file URL
+// readFromDeployedFile reads text content from Google Cloud Storage using gsutil URI
 func (gs *GraphService) readFromDeployedFile(ctx context.Context, resultPath string) (string, error) {
-	// Create HTTP request with context
-	req, err := http.NewRequestWithContext(ctx, "GET", resultPath, nil)
+	// Parse gsutil URI (gs://bucket/path/to/file.txt)
+	if !strings.HasPrefix(resultPath, "gs://") {
+		return "", fmt.Errorf("invalid gsutil URI format, expected gs://bucket/path, got: %s", resultPath)
+	}
+	
+	// Remove gs:// prefix and split bucket and object
+	path := strings.TrimPrefix(resultPath, "gs://")
+	parts := strings.SplitN(path, "/", 2)
+	if len(parts) != 2 {
+		return "", fmt.Errorf("invalid gsutil URI format, expected gs://bucket/path, got: %s", resultPath)
+	}
+	
+	bucketName := parts[0]
+	objectName := parts[1]
+	
+	// Create Google Cloud Storage client with service account key
+	client, err := storage.NewClient(ctx, option.WithCredentialsFile("service_account_key.json"))
 	if err != nil {
-		return "", fmt.Errorf("failed to create HTTP request: %w", err)
+		return "", fmt.Errorf("failed to create GCS client: %w", err)
 	}
-
-	// Make HTTP request
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	defer client.Close()
+	
+	// Get bucket handle
+	bucket := client.Bucket(bucketName)
+	
+	// Get object handle
+	object := bucket.Object(objectName)
+	
+	// Read object content
+	reader, err := object.NewReader(ctx)
 	if err != nil {
-		return "", fmt.Errorf("failed to fetch file from URL: %w", err)
+		return "", fmt.Errorf("failed to create object reader: %w", err)
 	}
-	defer resp.Body.Close()
-
-	// Check HTTP status
-	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("HTTP request failed with status: %d", resp.StatusCode)
-	}
-
-	// Read response body
-	body, err := io.ReadAll(resp.Body)
+	defer reader.Close()
+	
+	// Read all content
+	content, err := io.ReadAll(reader)
 	if err != nil {
-		return "", fmt.Errorf("failed to read response body: %w", err)
+		return "", fmt.Errorf("failed to read object content: %w", err)
 	}
-
-	return string(body), nil
+	
+	return string(content), nil
 }
 
 // createLogicGraph creates a logic graph using the real LogicGraphCreator
